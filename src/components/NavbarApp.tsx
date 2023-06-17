@@ -5,7 +5,7 @@ export const NavbarApp: React.FC<any> = (props) => {
 
   return (
     <div className="pb-40 flex w-full component-preview p-4 items-center justify-center gap-2 font-sans">
-    <Navbar>
+    <Navbar className="justify-between">
       <Navbar.Start>
         <Dropdown>
           <Button color="ghost" tabIndex={0} className="lg:hidden">
@@ -25,7 +25,7 @@ export const NavbarApp: React.FC<any> = (props) => {
             </svg>
           </Button>
           <Dropdown.Menu tabIndex={0} className="w-52 menu-compact mt-3">
-            <Dropdown.Item>Item 1</Dropdown.Item>
+            <Dropdown.Item>Início</Dropdown.Item>
             <Dropdown.Item>Sobre</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
@@ -34,7 +34,7 @@ export const NavbarApp: React.FC<any> = (props) => {
       <Navbar.Center className="hidden lg:flex">
         <Menu horizontal className="p-0">
           <Menu.Item>
-            <a>Item 1</a>
+            <a>Início</a>
           </Menu.Item>
           <Menu.Item>
             <a>Sobre</a>

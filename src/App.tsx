@@ -1,8 +1,9 @@
 import './App.css'
-import { Theme, Button } from 'react-daisyui'
+import { Theme } from 'react-daisyui'
 import { FooterCopyright } from './components/FooterCopyright'
-import { NavbarApp } from './components/NavBarApp'
-import { HomeBox } from './components/HomeBox'
+import { NavbarApp } from './components/NavbarApp'
+import { CreateCardScreen } from './pages/CreateCardScreen'
+import { HomeScreen } from './pages/HomeScreen'
 
 function App() {
 
@@ -10,7 +11,8 @@ function App() {
     <>
     <Theme dataTheme="dark">
       <NavbarApp></NavbarApp>
-      <HomeBox></HomeBox>
+      <HomeScreen></HomeScreen>
+      {/*<CreateCardScreen></CreateCardScreen>*/}
       <FooterCopyright></FooterCopyright>
     </Theme>
     </>
