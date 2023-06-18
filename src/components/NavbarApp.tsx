@@ -4,8 +4,8 @@ import { Button, Dropdown, Menu, Navbar } from 'react-daisyui';
 export const NavbarApp: React.FC<any> = (props) => {
 
   return (
-    <div className="pb-40 flex w-full component-preview p-4 items-center justify-center gap-2 font-sans">
-    <Navbar className="justify-between">
+    <div className="flex w-full component-preview p-4 items-center justify-center gap-2 font-sans pb-52">
+    <Navbar className="bg-base-100 bg-opacity-40 rounded-lg">
       <Navbar.Start>
         <Dropdown>
           <Button color="ghost" tabIndex={0} className="lg:hidden">
@@ -42,7 +42,7 @@ export const NavbarApp: React.FC<any> = (props) => {
         </Menu>
       </Navbar.Center>
       <Navbar.End>
-        <Button>Entrar</Button>
+        <Button className='mr-5 rounded-lg'>Entrar</Button>
       </Navbar.End>
     </Navbar>
   </div>

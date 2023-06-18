@@ -6,8 +6,8 @@ export const CardBox: React.FC<any> = (props) => {
   return (
     <div>
       <div className="mb-3">
-      <Card>
-      <Card.Title tag="h2" className='p-5'>
+      <Card className='bg-base-300 '>
+      <Card.Title tag="h2" className='bg-base-100 bg-gray-900 bg-opacity-50 rounded-lg text-justify p-2'>
         <p>Mago Negro</p>
         </Card.Title>
         <Card.Image
@@ -17,9 +17,9 @@ export const CardBox: React.FC<any> = (props) => {
         <Card.Body>
           <div className=''>
 
-    <ChatBubble end={false}>
-      <ChatBubble.Message>The ultimate wizard in terms of attack and defense.</ChatBubble.Message>
-    </ChatBubble>
+    <div className='bg-base-100 bg-gray-700 bg-opacity-50 rounded-lg text-justify p-2'>
+      The ultimate wizard in terms of attack and defense.
+    </div>
           </div>
           
         </Card.Body>

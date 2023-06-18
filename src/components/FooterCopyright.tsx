@@ -4,7 +4,7 @@ import { Footer } from 'react-daisyui';
 export const FooterCopyright: React.FC<any> = (props) => {
 
   return (
-    <Footer className="p-5 bg text-secondary-content ">
+    <Footer className="p-5 bg text-secondary-content mt-auto">
     <div>
       <svg
         width="50"

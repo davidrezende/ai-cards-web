@@ -7,6 +7,9 @@ export default {
     'node_modules/react-daisyui/dist/**/*.js'
   ],
   theme: {
+    borderRadius: {
+      'lg': '2rem',
+    },
     extend: {},
   },
   daisyui: {
