@@ -1,16 +1,17 @@
 import React from 'react';
-import { Hero} from 'react-daisyui';
-import { CardBox } from '../components/CardBox';
 import { CardCreateForm } from '../components/CardCreateForm';
+import cardimg from './../assets/background-home.jpg';
 
 export const CreateCardScreen: React.FC<any> = (props) => {
 
-  return (
-    <Hero>
-      <Hero.Content className="flex-col lg:flex-row ">
-        <CardCreateForm></CardCreateForm>
-        <CardBox></CardBox>
-      </Hero.Content>
-    </Hero>
-  )
+    return (
+
+        <div className='bg-cover bg-fixed bg-center' style={{ backgroundImage: `url(${cardimg})` }}>
+            <body className='flex h-screen min-h-screen '>
+                <div className='m-auto'>
+                    <CardCreateForm></CardCreateForm>
+                </div>
+            </body>
+        </div>
+    )
 }

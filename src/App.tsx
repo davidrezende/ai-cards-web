@@ -3,7 +3,7 @@ import { Theme } from 'react-daisyui'
 import { FooterCopyright } from './components/FooterCopyright'
 import { NavbarApp } from './components/NavbarApp'
 import { HomeScreen } from './pages/HomeScreen'
-import cardimg from './assets/pote.jpg';
+import cardimg from './assets/background-home.jpg';
 import { CreateCardScreen } from './pages/CreateCardScreen'
 
 function App() {
@@ -11,15 +11,14 @@ function App() {
   return (
     <>
       <Theme dataTheme="dark">
-
-        <body className='bg-cover bg-fixed bg-center flex flex-col min-h-screen' style={{ backgroundImage: `url(${cardimg})` }}>
-          <NavbarApp></NavbarApp>
-          {/* {<HomeScreen></HomeScreen>} */}
-          <CreateCardScreen></CreateCardScreen>
-          <FooterCopyright></FooterCopyright>
+        <body className='bg-cover bg-fixed bg-center flex h-screen min-h-screen ' style={{ backgroundImage: `url(${cardimg})` }}>
+          <div className='m-auto'>
+            {/* <body className='bg-cover bg-fixed bg-center flex flex-col min-h-screen'> */}
+            {/* <NavbarApp></NavbarApp> */}
+            {/* {<HomeScreen></HomeScreen>} */}
+            {/* <CreateCardScreen></CreateCardScreen> */}
+          </div>
         </body>
-
-
       </Theme>
     </>
   )
