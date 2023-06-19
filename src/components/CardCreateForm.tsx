@@ -5,6 +5,7 @@ export const CardCreateForm: React.FC<any> = (props) => {
 
 
   const handleCreateCardText = async () => {
+    console.log('teste')
     await CardService.generateCardText(
       {
         "userId": "be29b328-7d0b-473e-b74a-93dd361fc0eb",
