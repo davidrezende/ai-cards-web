@@ -10,7 +10,7 @@ export const CardCreateForm: React.FC<any> = (props) => {
       {
         "userId": "be29b328-7d0b-473e-b74a-93dd361fc0eb",
         "questions": [
-          { 
+          {
             "questionId": "fe8baef1-de96-4397-8558-a4afa9b61c0a",
             "answer": "Mulher, insegura, bonita"
           },
@@ -33,16 +33,18 @@ export const CardCreateForm: React.FC<any> = (props) => {
 
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-      <Card className='bg-base-300 p-10'>
-        <Card.Title className='animate-bounce font-extrabold text-xl font-mono normal-case'>
-          Quais são as características físicas do seu peronsagem?
-        </Card.Title>
-        <Card.Body>
+      <Card className='bg-base-300 p-10 bg-opacity-50'>
+        <div className=''>
+          <Card.Title className='animate-bounce font-extrabold text-xl font-mono boboca'>
+            Quais são as características físicas do seu personagem?
+          </Card.Title>
+        </div>
+        <Card.Body className=''>
           <div className="flex w-full component-preview p-4 items-center justify-center font-sans">
-            <Input className='btn-lg w-full rounded-md py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6' />
+            <Input className='text-2xl btn-lg w-full rounded-md py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ' />
           </div>
           <Button
-            className='btn-active font-bold text-xl font-mono normal-case'
+            className='btn-active font-bold text-2xl font-mono normal-case'
             dataTheme='light'
             onClick={handleCreateCardText}>Criar Carta</Button>
         </Card.Body>

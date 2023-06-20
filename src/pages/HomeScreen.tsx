@@ -3,7 +3,7 @@ import { Hero } from 'react-daisyui';
 import { HomePrimaryBoxText } from '../components/home/HomePrimaryBoxText';
 import { HomeBoxButtons } from '../components/home/HomeBoxButtons';
 import { HomeSecondaryBoxText } from '../components/home/HomeSecondaryBoxText';
-import cardimg from './../assets/background-home.jpg';
+import cardimg from './../assets/bg-image-home.jpg';
 import { FooterCopyright } from '../components/FooterCopyright';
 
 export const HomeScreen: React.FC<any> = (props) => {

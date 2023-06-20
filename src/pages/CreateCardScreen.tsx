@@ -1,6 +1,6 @@
 import React from 'react';
 import { CardCreateForm } from '../components/CardCreateForm';
-import cardimg from './../assets/background-home.jpg';
+import cardimg from './../assets/maos.png';
 
 export const CreateCardScreen: React.FC<any> = (props) => {
 
