@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+.boboca{
+	color: black;
+	font-size: 34px;
+	-webkit-text-stroke: 2px rgb(0, 0, 0);
+	-webkit-text-fill-color: white;
+}
+
 html,
 body,
 #root {
