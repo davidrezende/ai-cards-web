@@ -32,8 +32,8 @@ export const CardCreateForm: React.FC<any> = (props) => {
   };
 
   return (
-    <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-      <Card className='bg-base-300 p-10 bg-opacity-50'>
+    <div className='flex justify-center items-center'>
+      <Card className='bg-base-300 p-10 bg-opacity-90 w-11/12'>
         <div className=''>
           <Card.Title className='animate-bounce font-extrabold text-xl font-mono boboca'>
             Quais são as características físicas do seu personagem?
