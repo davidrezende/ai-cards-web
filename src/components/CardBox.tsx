@@ -4,26 +4,12 @@ import cardimg from './../assets/magonegro.png';
 export const CardBox: React.FC<any> = (props) => {
 
   return (
-    <div>
-      <div className="mb-3">
-        <Card className='bg-base-300 '>
-          <Card.Title tag="h2" className='bg-base-100 bg-gray-900 bg-opacity-50 rounded-lg text-justify p-2'>
-            <p>Mago Negro</p>
-          </Card.Title>
-          <Card.Image
-            src={cardimg}
-            alt="Shoes"
-          />
-          <Card.Body>
-            <div className=''>
-              <div className='bg-base-100 bg-gray-700 bg-opacity-50 rounded-lg text-justify p-2'>
-                The ultimate wizard in terms of attack and defense.
-              </div>
-            </div>
-
-          </Card.Body>
-        </Card>
-      </div>
+    <div className="card bg-base-100 shadow-xl w-28 h-28 ">
+      {/* <div className="card-body">
+        <h2 className="card-title">Shoes!</h2>
+        <p>If a dog chews shoes whose shoes does he choose?</p>
+      </div> */}
+      <figure><img src={cardimg} alt="Shoes" /></figure>
     </div>
   )
 
