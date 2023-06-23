@@ -1,55 +1,136 @@
 import React from 'react';
 import { Button, Card, Input } from 'react-daisyui';
 import { CardService } from '../services/ServiceCard';
+import { QuestionService } from '../services/ServiceQuestions'
+import { useState, useEffect } from 'react';
+import Question from '../shared/types/QuestionVO';
 export const CardCreateForm: React.FC<any> = (props) => {
 
+  const [qt, setQt] = useState<number>(0)
+  const [questions, setQuestions] = useState<any[]>([''])
+  const [answers, setAnswers] = useState<Question[]>([])
+  const [answer, setAnswer] = useState<string>('')
+  const [change, setChange] = useState(true)
+  const [imageAnswer, setImageAnswer] = useState<string>('')
+  const [textResponse, setTextResponse] = useState<string>('')
+
+  useEffect(() => {
+    QuestionService.getAllQuestions.then((data) => setQuestions(data.data))
+  }, [])
+
+  function handleNextQuestion() {
+    if (qt < 3 && answers.length == qt) {
+      setAnswers(current => [...current, { questionId: questions[qt].questionId, answer: answer }])
+      setAnswer('')
+    } else if (qt < 3 && answers.length != qt) {
+      const newState = answers.map((obj, index) => {
+        console.log(index, obj)
+        if (index == qt) return { ...obj, questionId: questions[qt].questionId, answer: answer }
+        return obj
+      })
+      setAnswers(newState)
+      setAnswer('')
+    }
+    if (qt === (questions.length - 1)) {
+      console.log("criar descrição da carta")
+      handleCreateCardText()
+      setChange(!change)
+    } else {
+      setQt(qt + 1)
+    }
+  }
+
+  function handlePreviousQuestion() {
+    if (qt > 0) {
+      setQt(qt - 1)
+      setAnswer(answers[qt - 1].answer)
+    }
+  }
 
   const handleCreateCardText = async () => {
-    console.log('teste')
+    console.log('gerando texto')
     await CardService.generateCardText(
       {
-        "userId": "be29b328-7d0b-473e-b74a-93dd361fc0eb",
-        "questions": [
-          {
-            "questionId": "fe8baef1-de96-4397-8558-a4afa9b61c0a",
-            "answer": "Mulher, insegura, bonita"
-          },
-          {
-            "questionId": "4c9e5bf8-326f-44e2-901a-b39d4fa0a442",
-            "answer": "colegial, escola"
-          },
-          {
-            "questionId": "aeb552b4-1e01-425a-84d6-f65448b29e65",
-            "answer": "ser aceita por quem ela é e não pelas aparências."
-          }
-        ]
+        "userId": "ee4f4544-efa0-4e7b-93f1-a67b3d9a140c",
+        "questions": answers
       }
     ).then((response) => {
-      console.log(response)
+      setTextResponse(response.data.cardHash)
+      console.log("setando carhash")
+      console.log(textResponse)
     }).catch((error) => {
       console.log(error)
     })
   };
 
+  const handleCreateCardImage = async () => {
+    console.log(textResponse)
+    console.log("criando image")
+    console.log(imageAnswer)
+    await CardService.generateCardImage(
+      textResponse, imageAnswer
+    ).then((response) => {
+      console.log(response)
+    }).catch((error) => {
+      console.log(error)
+    })
+  }
+
+
   return (
-    <div className='flex justify-center items-center'>
-      <Card className='bg-base-300 p-10 bg-opacity-90 w-11/12'>
-        <div className=''>
-          <Card.Title className='animate-bounce font-extrabold text-xl font-mono boboca'>
-            Quais são as características físicas do seu personagem?
-          </Card.Title>
+    <>
+      {change ?
+        <div className='flex justify-center items-center'>
+          <Card className='bg-base-300 p-10 bg-opacity-90 w-11/12'>
+            <div className=''>
+              <Card.Title className='animate-bounce font-extrabold text-xl font-mono boboca'>
+                <p>{questions[qt].question}</p>
+              </Card.Title>
+            </div>
+            <Card.Body className=''>
+              <div className="flex w-full component-preview p-4 items-center justify-center font-sans">
+                <Input
+                  className='text-2xl btn-lg w-full rounded-md py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600'
+                  onChange={e => setAnswer(e.target.value)}
+                  value={answer}
+                />
+              </div>
+              <Button
+                className='btn-active font-bold text-2xl font-mono normal-case'
+                dataTheme='light'
+                onClick={handlePreviousQuestion}>Voltar Pergunta</Button>
+              <Button
+                className='btn-active font-bold text-2xl font-mono normal-case'
+                dataTheme='light'
+                onClick={handleNextQuestion}>Proxima Pergunta</Button>
+            </Card.Body>
+          </Card>
         </div>
-        <Card.Body className=''>
-          <div className="flex w-full component-preview p-4 items-center justify-center font-sans">
-            <Input className='text-2xl btn-lg w-full rounded-md py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ' />
-          </div>
-          <Button
-            className='btn-active font-bold text-2xl font-mono normal-case'
-            dataTheme='light'
-            onClick={handleCreateCardText}>Criar Carta</Button>
-        </Card.Body>
-      </Card>
-    </div>
+        :
+        <div className='flex justify-center items-center'>
+          <Card className='bg-base-300 p-10 bg-opacity-90 w-11/12'>
+            <div className=''>
+              <Card.Title className='animate-bounce font-extrabold text-xl font-mono boboca'>
+                <p>Vamos criar a imagem da sua carta!</p>
+              </Card.Title>
+            </div>
+            <Card.Body className=''>
+              <div className="flex w-full component-preview p-4 items-center justify-center font-sans">
+                <Input
+                  className='text-2xl btn-lg w-full rounded-md py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600'
+                  onChange={e => setImageAnswer(e.target.value)}
+                  value={imageAnswer}
+                />
+              </div>
+              <Button
+                className='btn-active font-bold text-2xl font-mono normal-case'
+                dataTheme='light'
+                onClick={handleCreateCardImage}>Criar carta!</Button>
+            </Card.Body>
+          </Card>
+        </div>
+      }
+    </>
   )
 
 }
