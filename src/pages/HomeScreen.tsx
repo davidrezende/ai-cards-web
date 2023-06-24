@@ -9,7 +9,7 @@ export const HomeScreen: React.FC<any> = (props) => {
 
   return (
     <>
-      <div className='w-screen'>
+      <div className='w-screen resize-none'>
           <div className='flex min-h-screen'>
             <Hero>
               <Hero.Content className="flex-col lg:flex-row ">
