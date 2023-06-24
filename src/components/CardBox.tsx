@@ -1,5 +1,4 @@
 import React from 'react';
-import { Card } from 'react-daisyui';
 import cardimg from './../assets/magonegro.png';
 export const CardBox: React.FC<any> = (props) => {
 

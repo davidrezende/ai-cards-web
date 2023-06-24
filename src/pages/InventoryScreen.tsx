@@ -12,9 +12,6 @@ export const InventoryScreen: React.FC<any> = (props) => {
                 <NavbarApp />
                 <div className="flex flex-col w-full lg:flex-row h-screen">
                     <div className="p-10 grid h-full card bg-base-300 rounded-box place-items-center">
-                        <div className="p-12  flex items-center justify-center hover:scale-125 hover:bg-sky-700">
-                            <CardBox />
-                        </div>
                         <MenuProfile />
                     </div>
                     <div className="divider lg:divider-horizontal">
