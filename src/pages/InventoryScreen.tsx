@@ -1,10 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { CardService } from '../services/ServiceCard';
+import Card from '../shared/types/CardVO';
 import { CardBox } from '../components/CardBox';
-import { FooterCopyright } from '../components/FooterCopyright';
-import { NavbarApp } from '../components/NavbarApp';
 import { MenuProfile } from '../components/MenuProfile';
+import { NavbarApp } from '../components/NavbarApp';
 
 export const InventoryScreen: React.FC<any> = (props) => {
+    const [cards, setCards] = useState<Card[]>()
+
+    useEffect(() => {
+        console.log('listando cartas do usuario')
+        CardService.getAllCardsByuUser("ee4f4544-efa0-4e7b-93f1-a67b3d9a140c")
+        .then((response) => {
+            setCards(response.data)
+            console.log('CARDS')
+          console.log(cards)
+          console.log(response.data)
+        }).catch((error) => {
+          console.log(error)
+        })
+    }, [])
 
     return (
         <>
@@ -21,97 +36,15 @@ export const InventoryScreen: React.FC<any> = (props) => {
                         <div className="divider divider-horizontal">
                         </div>
                         <div className='flex-col lg:flex-row place-items-center'>
-                            <div className="max-h-px grid grid-cols-2 gap-4 lg:grid-cols-6 md:grid-cols-4">
-                                <div className="p-4 rounded-lg border-solid border-2 border-sky-500 flex items-center justify-center hover:scale-125 hover:bg-sky-700">
-                                    <CardBox />
-                                </div>
-                                <div className="p-4 rounded-lg border-solid border-2 border-sky-500 flex items-center justify-center hover:scale-125 hover:bg-sky-700">
-                                    <CardBox />
-                                </div>
-                                <div className="p-4 rounded-lg border-solid border-2 border-sky-500 flex items-center justify-center hover:scale-125 hover:bg-sky-700">
-                                    <CardBox />
-                                </div>
-                                <div className="p-4 rounded-lg border-solid border-2 border-sky-500 flex items-center justify-center hover:scale-125 hover:bg-sky-700">
-                                    <CardBox />
-                                </div>
-                                <div className="p-4 rounded-lg border-solid border-2 border-sky-500 flex items-center justify-center hover:scale-125 hover:bg-sky-700">
-                                    <CardBox />
-                                </div>
-                                <div className="p-4 rounded-lg border-solid border-2 border-sky-500 flex items-center justify-center hover:scale-125 hover:bg-sky-700">
-                                    <CardBox />
-                                </div>
-                                <div className="p-4 rounded-lg border-solid border-2 border-sky-500 flex items-center justify-center hover:scale-125 hover:bg-sky-700">
-                                    <CardBox />
-                                </div>
-                                <div className="p-4 rounded-lg border-solid border-2 border-sky-500 flex items-center justify-center hover:scale-125 hover:bg-sky-700">
-                                    <CardBox />
-                                </div>
-                                <div className="p-4 rounded-lg border-solid border-2 border-sky-500 flex items-center justify-center hover:scale-125 hover:bg-sky-700">
-                                    <CardBox />
-                                </div>
-                                <div className="p-4 rounded-lg border-solid border-2 border-sky-500 flex items-center justify-center hover:scale-125 hover:bg-sky-700">
-                                    <CardBox />
-                                </div>
-                                <div className="p-4 rounded-lg border-solid border-2 border-sky-500 flex items-center justify-center hover:scale-125 hover:bg-sky-700">
-                                    <CardBox />
-                                </div>
-                                <div className="p-4 rounded-lg border-solid border-2 border-sky-500 flex items-center justify-center hover:scale-125 hover:bg-sky-700">
-                                    <CardBox />
-                                </div>
-                                <div className="p-4 rounded-lg border-solid border-2 border-sky-500 flex items-center justify-center hover:scale-125 hover:bg-sky-700">
-                                    <CardBox />
-                                </div>
-                                <div className="p-4 rounded-lg border-solid border-2 border-sky-500 flex items-center justify-center hover:scale-125 hover:bg-sky-700">
-                                    <CardBox />
-                                </div>
-                                <div className="p-4 rounded-lg border-solid border-2 border-sky-500 flex items-center justify-center hover:scale-125 hover:bg-sky-700">
-                                    <CardBox />
-                                </div>
-                                <div className="p-4 rounded-lg border-solid border-2 border-sky-500 flex items-center justify-center hover:scale-125 hover:bg-sky-700">
-                                    <CardBox />
-                                </div>
-                                <div className="p-4 rounded-lg border-solid border-2 border-sky-500 flex items-center justify-center hover:scale-125 hover:bg-sky-700">
-                                    <CardBox />
-                                </div>
-                                <div className="p-4 rounded-lg border-solid border-2 border-sky-500 flex items-center justify-center hover:scale-125 hover:bg-sky-700">
-                                    <CardBox />
-                                </div>
-                                <div className="p-4 rounded-lg border-solid border-2 border-sky-500 flex items-center justify-center hover:scale-125 hover:bg-sky-700">
-                                    <CardBox />
-                                </div>
-                                <div className="p-4 rounded-lg border-solid border-2 border-sky-500 flex items-center justify-center hover:scale-125 hover:bg-sky-700">
-                                    <CardBox />
-                                </div>
-                                <div className="p-4 rounded-lg border-solid border-2 border-sky-500 flex items-center justify-center hover:scale-125 hover:bg-sky-700">
-                                    <CardBox />
-                                </div>
-                                <div className="p-4 rounded-lg border-solid border-2 border-sky-500 flex items-center justify-center hover:scale-125 hover:bg-sky-700">
-                                    <CardBox />
-                                </div>
-                                <div className="p-4 rounded-lg border-solid border-2 border-sky-500 flex items-center justify-center hover:scale-125 hover:bg-sky-700">
-                                    <CardBox />
-                                </div>
-                                <div className="p-4 rounded-lg border-solid border-2 border-sky-500 flex items-center justify-center hover:scale-125 hover:bg-sky-700">
-                                    <CardBox />
-                                </div>
-                                <div className="p-4 rounded-lg border-solid border-2 border-sky-500 flex items-center justify-center hover:scale-125 hover:bg-sky-700">
-                                    <CardBox />
-                                </div>
-                                <div className="p-4 rounded-lg border-solid border-2 border-sky-500 flex items-center justify-center hover:scale-125 hover:bg-sky-700">
-                                    <CardBox />
-                                </div>
-                                <div className="p-4 rounded-lg border-solid border-2 border-sky-500 flex items-center justify-center hover:scale-125 hover:bg-sky-700">
-                                    <CardBox />
-                                </div>
-                                <div className="p-4 rounded-lg border-solid border-2 border-sky-500 flex items-center justify-center hover:scale-125 hover:bg-sky-700">
-                                    <CardBox />
-                                </div>
-                                <div className="p-4 rounded-lg border-solid border-2 border-sky-500 flex items-center justify-center hover:scale-125 hover:bg-sky-700">
-                                    <CardBox />
-                                </div>
-                                <div className="p-4 rounded-lg border-solid border-2 border-sky-500 flex items-center justify-center hover:scale-125 hover:bg-sky-700">
-                                    <CardBox />
-                                </div>
+                            <div className="max-h-px max-w-full grid grid-cols-2 gap-4 lg:grid-cols-6 md:grid-cols-4">
+                            {
+                                cards?.map((card) => (
+                                    <CardBox
+                                        name={card.name}
+                                        imageBase64={ card.image }
+                                    />
+                                ) )
+                            }
                             </div>
                         </div>
                     </div>
