@@ -3,12 +3,12 @@ import { Button, Card, Input } from 'react-daisyui';
 import { CardService } from '../services/ServiceCard';
 import { QuestionService } from '../services/ServiceQuestions'
 import { useState, useEffect } from 'react';
-import Question from '../shared/types/QuestionVO';
+import IQuestionsRequest from '../shared/types/QuestionVO';
 export const CardCreateForm: React.FC<any> = (props) => {
 
   const [qt, setQt] = useState<number>(0)
   const [questions, setQuestions] = useState<any[]>([''])
-  const [answers, setAnswers] = useState<Question[]>([])
+  const [questionsRequest, setQuestionsRequest] = useState<IQuestionsRequest[]>([])
   const [answer, setAnswer] = useState<string>('')
   const [change, setChange] = useState(true)
   const [imageAnswer, setImageAnswer] = useState<string>('')
@@ -19,18 +19,23 @@ export const CardCreateForm: React.FC<any> = (props) => {
   }, [])
 
   function handleNextQuestion() {
-    if (qt < 3 && answers.length == qt) {
-      setAnswers(current => [...current, { questionId: questions[qt].questionId, answer: answer }])
+
+    // Está em uma pergunta nova? 
+    if (qt < 3 && questionsRequest.length == qt) {
+      setQuestionsRequest(current => [...current, { questionId: questions[qt].questionId, answer: answer }])
       setAnswer('')
-    } else if (qt < 3 && answers.length != qt) {
-      const newState = answers.map((obj, index) => {
-        console.log(index, obj)
-        if (index == qt) return { ...obj, questionId: questions[qt].questionId, answer: answer }
-        return obj
-      })
-      setAnswers(newState)
-      setAnswer('')
+
+      // Está em uma pergunta repetida?
+    } else if (qt < 3 && questionsRequest.length != qt) {
+      setQuestionsRequest(updateQuestions())
+
+      /*  Se a próxima pergunta conter algo,
+          define a resposta com a 'answer' da proxima pergunta.
+          Se não, define a resposta como vazio.
+      */
+      questionsRequest[qt + 1] != undefined ? setAnswer(questionsRequest[qt + 1].answer) : setAnswer('')
     }
+
     if (qt === (questions.length - 1)) {
       console.log("criar descrição da carta")
       handleCreateCardText()
@@ -43,8 +48,19 @@ export const CardCreateForm: React.FC<any> = (props) => {
   function handlePreviousQuestion() {
     if (qt > 0) {
       setQt(qt - 1)
-      setAnswer(answers[qt - 1].answer)
+      if (questionsRequest[qt] == undefined) {
+        setQuestionsRequest(current => [...current, { questionId: questions[qt].questionId, answer: answer }])
+      }
+      setAnswer(questionsRequest[qt - 1].answer)
     }
+  }
+
+  function updateQuestions() {
+    const newState = questionsRequest.map((obj, index) => {
+      if (index == qt) return { ...obj, questionId: questions[qt].questionId, answer: answer }
+      return obj
+    })
+    return newState
   }
 
   const handleCreateCardText = async () => {
@@ -52,7 +68,7 @@ export const CardCreateForm: React.FC<any> = (props) => {
     await CardService.generateCardText(
       {
         "userId": "ee4f4544-efa0-4e7b-93f1-a67b3d9a140c",
-        "questions": answers
+        "questions": questionsRequest
       }
     ).then((response) => {
       setTextResponse(response.data.cardHash)
@@ -76,35 +92,30 @@ export const CardCreateForm: React.FC<any> = (props) => {
     })
   }
 
-
   return (
     <>
       {change ?
-        <div className='flex justify-center items-center'>
-          <Card className='bg-base-300 p-10 bg-opacity-90 w-11/12'>
-            <div className=''>
-              <Card.Title className='animate-bounce font-extrabold text-xl font-mono boboca'>
-                <p>{questions[qt].question}</p>
-              </Card.Title>
-            </div>
-            <Card.Body className=''>
-              <div className="flex w-full component-preview p-4 items-center justify-center font-sans">
-                <Input
-                  className='text-2xl btn-lg w-full rounded-md py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600'
-                  onChange={e => setAnswer(e.target.value)}
-                  value={answer}
-                />
-              </div>
-              <Button
-                className='btn-active font-bold text-2xl font-mono normal-case'
-                dataTheme='light'
-                onClick={handlePreviousQuestion}>Voltar Pergunta</Button>
-              <Button
-                className='btn-active font-bold text-2xl font-mono normal-case'
-                dataTheme='light'
-                onClick={handleNextQuestion}>Proxima Pergunta</Button>
-            </Card.Body>
-          </Card>
+        <div className='bg-base-300 p-10 bg-opacity-95 rounded-lg w-1/2 max-w-4xl'>
+          <div className='animate-bounce font-extrabold text-base font-mono boboca text-center'>
+            <p>{questions[qt].question}</p>
+          </div>
+          <div className='flex component-preview py-4 font-sans'>
+            <Input
+              className='text-2xl btn-lg w-full rounded-md py-1.5 shadow-sm ring-1 ring-inset ring-gray-400 placeholder:text-gray-700 focus:ring-2 focus:ring-inset focus:ring-indigo-600'
+              onChange={e => setAnswer(e.target.value)}
+              value={answer}
+            />
+          </div>
+          <div className='w-full items-center justify-center space-y-3'>
+            {qt > 0 &&
+              <button
+                id='1'
+                className='btn w-full text-white bg-primary btn-active font-bold text-2xl font-mono normal-case'
+                onClick={handlePreviousQuestion}>Voltar Pergunta</button>}
+            <button
+              className='btn w-full text-white bg-primary btn-active font-bold text-2xl font-mono normal-case'
+              onClick={handleNextQuestion}>Proxima Pergunta</button>
+          </div>
         </div>
         :
         <div className='flex justify-center items-center'>
