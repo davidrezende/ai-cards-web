@@ -1,6 +1,6 @@
-import Question from "./QuestionVO"
+import IQuestionsRequest from "./QuestionVO"
 
 export default interface IRequestCreateCardText {
     userId: string
-    questions: Question[]
+    questions: IQuestionsRequest[]
   }

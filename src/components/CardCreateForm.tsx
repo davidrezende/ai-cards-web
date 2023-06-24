@@ -18,13 +18,20 @@ export const CardCreateForm: React.FC<any> = (props) => {
     QuestionService.getAllQuestions.then((data) => setQuestions(data.data))
   }, [])
 
-  function handleNextQuestion() {
+  useEffect(() => {
+    if (qt == 3) {
+      console.log(questionsRequest)
+      console.log("criar descrição da carta")
+      handleCreateCardText()
+      setChange(!change)
+    }
+  }, [qt])
 
+  function handleNextQuestion() {
     // Está em uma pergunta nova? 
     if (qt < 3 && questionsRequest.length == qt) {
       setQuestionsRequest(current => [...current, { questionId: questions[qt].questionId, answer: answer }])
       setAnswer('')
-
       // Está em uma pergunta repetida?
     } else if (qt < 3 && questionsRequest.length != qt) {
       setQuestionsRequest(updateQuestions())
@@ -35,23 +42,18 @@ export const CardCreateForm: React.FC<any> = (props) => {
       */
       questionsRequest[qt + 1] != undefined ? setAnswer(questionsRequest[qt + 1].answer) : setAnswer('')
     }
-
-    if (qt === (questions.length - 1)) {
-      console.log("criar descrição da carta")
-      handleCreateCardText()
-      setChange(!change)
-    } else {
-      setQt(qt + 1)
-    }
+    setQt(qt + 1)
   }
 
   function handlePreviousQuestion() {
     if (qt > 0) {
-      setQt(qt - 1)
       if (questionsRequest[qt] == undefined) {
         setQuestionsRequest(current => [...current, { questionId: questions[qt].questionId, answer: answer }])
+      } else {
+        setQuestionsRequest(updateQuestions())
       }
       setAnswer(questionsRequest[qt - 1].answer)
+      setQt(qt - 1)
     }
   }
 
@@ -94,7 +96,7 @@ export const CardCreateForm: React.FC<any> = (props) => {
 
   return (
     <>
-      {change ?
+      {change && qt < 3 ?
         <div className='bg-base-300 p-10 bg-opacity-95 rounded-lg w-1/2 max-w-4xl'>
           <div className='animate-bounce font-extrabold text-base font-mono boboca text-center'>
             <p>{questions[qt].question}</p>
