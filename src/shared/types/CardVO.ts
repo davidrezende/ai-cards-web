@@ -1,11 +1,11 @@
-import { List } from "postcss/lib/list"
 import ImageVO from "./ImageVO"
+import Attribute from "./AttributeVO"
 
 export default interface Card {
     cardHash: string
     name: string
     description: string
-    attributes: Map<string, number>
+    attributes: Attribute
     status: string
     image: ImageVO
   }

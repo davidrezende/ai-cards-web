@@ -11,14 +11,12 @@ export const InventoryScreen: React.FC<any> = (props) => {
     useEffect(() => {
         console.log('listando cartas do usuario')
         CardService.getAllCardsByuUser("ee4f4544-efa0-4e7b-93f1-a67b3d9a140c")
-        .then((response) => {
-            setCards(response.data)
-            console.log('CARDS')
-          console.log(cards)
-          console.log(response.data)
-        }).catch((error) => {
-          console.log(error)
-        })
+            .then((response) => {
+                setCards(response.data)
+                console.log(response.data)
+            }).catch((error) => {
+                console.log(error)
+            })
     }, [])
 
     return (
@@ -32,19 +30,20 @@ export const InventoryScreen: React.FC<any> = (props) => {
                     <div className="divider lg:divider-horizontal">
                     </div>
                     <div className="p-10 flex-grow card bg-base-200  rounded-box ">
-                        <p className='pb-5 text-start font-bold text-xl subpixel-antialiased'> Deck (30)</p>
+                        <p className='pb-5 text-start font-bold text-xl subpixel-antialiased'> Deck ({!!cards ? cards.length : '0'})</p>
                         <div className="divider divider-horizontal">
                         </div>
                         <div className='flex-col lg:flex-row place-items-center'>
-                            <div className="max-h-px max-w-full grid grid-cols-2 gap-4 lg:grid-cols-6 md:grid-cols-4">
-                            {
-                                cards?.map((card) => (
-                                    <CardBox
-                                        name={card.name}
-                                        imageBase64={ card.image }
-                                    />
-                                ) )
-                            }
+                            <div className="max-h-px max-w-full grid grid-cols-2 gap-6 lg:grid-cols-6 md:grid-cols-4">
+                                {
+                                    cards?.map((card) => (
+                                        <CardBox
+                                            name={card.name}
+                                            imageBase64={card.image}
+                                            attributes={card.attributes}
+                                        />
+                                    ))
+                                }
                             </div>
                         </div>
                     </div>
