@@ -18,5 +18,5 @@ body,
     display: flex;
     height: 100vh;
     margin: auto;
-    background-image: url("./assets/bg-image-home.jpg");
+    /* background-image: url("./assets/bg-image-home.jpg"); */
 }
