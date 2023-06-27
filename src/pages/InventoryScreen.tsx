@@ -13,21 +13,6 @@ type DialogProps = {
 };
 
 const Dialog: React.FC<DialogProps> = ({ isOpen, onClose, cardPopup }) => {
-    const [inputValue, setInputValue] = useState('');
-
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setInputValue(event.target.value);
-    };
-
-    const handleSubmit = () => {
-        // Lógica para lidar com o envio do formulário
-        // Aqui você pode fazer algo com o valor inserido no campo de input
-        console.log('Valor inserido:', inputValue);
-
-        // Fechar o diálogo
-        onClose();
-    };
-
     if (!isOpen) {
         return null;
     }
@@ -39,8 +24,6 @@ const Dialog: React.FC<DialogProps> = ({ isOpen, onClose, cardPopup }) => {
                 {
                     cardPopup?.status == "CREATED" ?
                     <>
-                    
-
                         <div className='flex justify-center items-center'>
                             <img className=' content-center' src={!!!cardPopup || !!!cardPopup.image || !!!cardPopup.image.image ? 'cardDefault' : 'data:image/jpeg;base64,' + cardPopup.image.image} alt={cardPopup?.name} />
                         </div>
@@ -57,7 +40,6 @@ const Dialog: React.FC<DialogProps> = ({ isOpen, onClose, cardPopup }) => {
                     </>
                     :
                     <p>Aguarde, sua carta está sendo criada</p>
-
                 }
                 <div className="flex justify-end">
                     <button
@@ -79,10 +61,6 @@ export const InventoryScreen: React.FC<any> = (props) => {
     const [cards, setCards] = useState<Card[]>()
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [cardPopup, setCardPopup] = useState<Card>()
-
-    const handleOpenDialog = () => {
-        setIsDialogOpen(true);
-    };
 
     const handleCloseDialog = () => {
         setIsDialogOpen(false);
