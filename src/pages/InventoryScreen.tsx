@@ -33,25 +33,41 @@ const Dialog: React.FC<DialogProps> = ({ isOpen, onClose, cardPopup }) => {
     }
 
     return (
-        <div className="fixed w-screen h-screen bg-gray-400 flex items-center justify-center z-10 ">
-            <div className="bg-white rounded-lg p-52 shadow py-10 px-6 container ">
+        <div className="fixed w-screen h-screen bg-base-200 bg-opacity-70 flex items-center justify-center z-10 ">
+            <div className="bg-base-300  rounded-lg p-52 shadow py-10 px-6 container justify-center">
                 <h2 className="text-xl font-bold mb-4 ">{cardPopup?.name}</h2>
-                <p className="mb-4 max-w-max ">{cardPopup?.description}</p>
-                <figure><img className='w-56 h-56' src={!!!cardPopup || !!!cardPopup.image || !!!cardPopup.image.image ? 'cardDefault' : 'data:image/jpeg;base64,' + cardPopup.image.image} alt={cardPopup?.name} /></figure>
-                <ul className="list-none">
-                    <li>FORÇA: {cardPopup?.attributes.FORCA}</li>
-                    <li>DESTREZA: {cardPopup?.attributes.DESTREZA}</li>
-                    <li>VITALIDADE: {cardPopup?.attributes.VITALIDADE}</li>
-                    <li>INTELIGENCIA: {cardPopup?.attributes.INTELIGENCIA}</li>
-                </ul>
+                {
+                    cardPopup?.status == "CREATED" ?
+                    <>
+                    
+
+                        <div className='flex justify-center items-center'>
+                            <img className=' content-center' src={!!!cardPopup || !!!cardPopup.image || !!!cardPopup.image.image ? 'cardDefault' : 'data:image/jpeg;base64,' + cardPopup.image.image} alt={cardPopup?.name} />
+                        </div>
+                        <div className='flex justify-center items-center w-3/5 '>
+                            <p className="mb-4 max-w-max">{cardPopup?.description}</p>
+                        </div>
+                        <ul className="list-none">
+                            <li>FORÇA: {cardPopup?.attributes.FORCA}</li>
+                            <li>DESTREZA: {cardPopup?.attributes.DESTREZA}</li>
+                            <li>VITALIDADE: {cardPopup?.attributes.VITALIDADE}</li>
+                            <li>INTELIGENCIA: {cardPopup?.attributes.INTELIGENCIA}</li>
+                        </ul>
+
+                    </>
+                    :
+                    <p>Aguarde, sua carta está sendo criada</p>
+
+                }
                 <div className="flex justify-end">
                     <button
                         onClick={onClose}
-                        className="bg-gray-300 text-gray-700 px-4 py-2 rounded"
+                        className="bg-gray-400 text-gray-700 px-4 py-2 rounded"
                     >
                         Fechar
                     </button>
                 </div>
+
             </div>
         </div>
     );
@@ -101,14 +117,14 @@ export const InventoryScreen: React.FC<any> = (props) => {
                     </div>
                     <div className="p-10 flex-grow card bg-base-200  rounded-box ">
 
-                        <p className='pb-5 text-start font-bold text-xl subpixel-antialiased'> Deck ({!!cards ? cards.filter((card) => (card.status == "CREATED")).length : '0'})</p>
+                        <p className='pb-5 text-start font-bold text-xl subpixel-antialiased'> Deck ({!!cards ? cards.length : '0'})</p>
                         <div className="divider divider-horizontal">
                         </div>
                         <div className='flex-col lg:flex-row place-items-center'>
 
                             <div className="max-h-px max-w-full grid grid-cols-2 gap-6 lg:grid-cols-6 md:grid-cols-4">
                                 {
-                                    !!cards ? cards.filter((card) => (card.status == "CREATED")).map((card) => (
+                                    !!cards ? cards.map((card) => (
                                         <CardBox
                                             card={card}
                                             onShowDialog={handleShowPopupCard}
