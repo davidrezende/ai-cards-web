@@ -4,7 +4,7 @@ import { Button, Dropdown, Menu, Navbar } from 'react-daisyui';
 export const NavbarApp: React.FC<any> = (props) => {
 
   return (
-    <div className="flex w-full component-preview p-4 items-center justify-center gap-2 font-sans pb-52">
+    <div className="flex w-full component-preview p-4 items-center justify-center gap-2 font-sans">
     <Navbar className="bg-base-100 bg-opacity-40 rounded-lg">
       <Navbar.Start>
         <Dropdown>
