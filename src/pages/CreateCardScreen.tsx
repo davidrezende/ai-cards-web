@@ -5,7 +5,7 @@ export const CreateCardScreen: React.FC<any> = (props) => {
 
     return (
 
-        <div className='h-screen w-screen flex justify-center items-center'>
+        <div className='h-screen w-screen flex flex-col justify-center items-center'>
             <CardCreateForm />
         </div>
     )
