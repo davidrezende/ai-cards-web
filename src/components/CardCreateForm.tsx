@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button, Card, Input } from 'react-daisyui';
+import { useNavigate } from 'react-router-dom'
+import { Input } from 'react-daisyui';
 import { CardService } from '../services/ServiceCard';
 import { QuestionService } from '../services/ServiceQuestions'
 import { useState, useEffect } from 'react';
@@ -14,13 +15,14 @@ export const CardCreateForm: React.FC<any> = (props) => {
   const [answer, setAnswer] = useState<string>('')
   const [change, setChange] = useState<number>(0)
   const [imageAnswer, setImageAnswer] = useState<string>('')
-  const [textResponse, setTextResponse] = useState<string>('')
+  const [cardHashResponse, setCardHashResponse] = useState<string>('')
   const [steps, setSteps] = useState<number>(1)
   const [nameAnswer, setNameAnswer] = useState<string>('')
   const placeHolderEx: string[] = [
     "Um mago poderoso, sábio e bondoso.",
     "Um mundo medieval, assolado pelo rei das trevas.",
     "Derrotar o rei das trevas e salvar a humanidade."]
+  const navigate = useNavigate()
 
   useEffect(() => {
     QuestionService.getAllQuestions.then((data) => setQuestions(data.data))
@@ -30,7 +32,7 @@ export const CardCreateForm: React.FC<any> = (props) => {
     if (qt == 3) {
       console.log(questionsRequest)
       console.log("criar descrição da carta")
-      //handleCreateCardText()
+      handleCreateCardText()
       setChange(change + 1)
     }
   }, [qt])
@@ -90,22 +92,39 @@ export const CardCreateForm: React.FC<any> = (props) => {
         "questions": questionsRequest
       }
     ).then((response) => {
-      setTextResponse(response.data.cardHash)
+      setCardHashResponse(response.data.cardHash)
       console.log("setando carhash")
-      console.log(textResponse)
+      console.log(cardHashResponse)
     }).catch((error) => {
       console.log(error)
     })
   };
 
   const handleCreateCardImage = async () => {
-    console.log(textResponse)
+    console.log(cardHashResponse)
     console.log("criando image")
     console.log(imageAnswer)
     await CardService.generateCardImage(
-      textResponse, imageAnswer
+      {
+        "cardHash": cardHashResponse,
+        "prompt": imageAnswer
+      }
     ).then((response) => {
       console.log(response)
+    }).catch((error) => {
+      console.log(error)
+    })
+  }
+
+  const handleUpdateCardName = async () => {
+    console.log("settando card name: " + nameAnswer)
+    await CardService.updateCardName(
+      {
+        "cardHash": cardHashResponse,
+        "name": nameAnswer
+      }
+    ).then((response) => {
+      console.log(response.data)
     }).catch((error) => {
       console.log(error)
     })
@@ -122,13 +141,13 @@ export const CardCreateForm: React.FC<any> = (props) => {
     timeLoading()
     setChange(change + 1)
     setSteps(steps + 1)
-    //handleCreateCardImage()
+    handleCreateCardImage()
   }
 
   function handleNameOnClick() {
     timeLoading()
-    //update card name
-    //redirecionar para inventário
+    handleUpdateCardName()
+    navigate('/cards')
   }
 
   return (
