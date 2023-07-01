@@ -1,4 +1,4 @@
-export default interface Question {
+export default interface IQuestionsRequest {
     questionId: string
     answer: string
   }

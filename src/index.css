@@ -2,11 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-.boboca {
-    color: black;
-    font-size: 34px;
-    -webkit-text-stroke: 2px rgb(0, 0, 0);
-    -webkit-text-fill-color: white;
+
+.boboca{
+	color: white;
+	font-size: 34px;
+	-webkit-text-stroke: 0.5px rgb(0, 0, 0);
+
 }
 
 html,
@@ -18,7 +19,7 @@ body,
     display: flex;
     height: 100vh;
     margin: auto;
-    /* background-image: url("./assets/bg-image-home.jpg"); */
+    background-image: url("https://img.freepik.com/premium-photo/plexus-geometry-line-dot-connection_146508-153.jpg");
 }
 
 ::-webkit-scrollbar-track {
