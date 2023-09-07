@@ -1,30 +1,22 @@
 import React from 'react';
-import { Card } from 'react-daisyui';
-import cardimg from './../assets/magonegro.png';
-export const CardBox: React.FC<any> = (props) => {
+import cardDefault from '../assets/magonegro.png'
+import Card from '../shared/types/CardVO';
+
+type ListProps = {
+  card: Card;
+  onShowDialog: (card: Card) => void;
+};
+
+export const CardBox: React.FC<ListProps> = ({ card, onShowDialog }) => {
 
   return (
-    <div>
-      <div className="mb-3">
-        <Card className='bg-base-300 '>
-          <Card.Title tag="h2" className='bg-base-100 bg-gray-900 bg-opacity-50 rounded-lg text-justify p-2'>
-            <p>Mago Negro</p>
-          </Card.Title>
-          <Card.Image
-            src={cardimg}
-            alt="Shoes"
-          />
-          <Card.Body>
-            <div className=''>
-              <div className='bg-base-100 bg-gray-700 bg-opacity-50 rounded-lg text-justify p-2'>
-                The ultimate wizard in terms of attack and defense.
-              </div>
-            </div>
-
-          </Card.Body>
-        </Card>
+    <>
+      <div onClick={() => onShowDialog(card)} className="flex items-center justify-center hover:scale-125 pb-3">
+        <div className="p-3 rounded-box border-solid border-2 bg-base-200 border-gray-700 card shadow-xl w-full h-full">
+          <p className='font-bold truncate text-center pb-2'>{card.name}</p>
+          <img className="rounded-box" src={!!!card || !!!card.image || !!!card.image.image ? cardDefault : 'data:image/jpeg;base64,' + card.image.image} alt={card.name} />
+        </div>
       </div>
-    </div>
+    </>
   )
-
 }

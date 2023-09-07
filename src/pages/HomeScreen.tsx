@@ -3,28 +3,24 @@ import { Hero } from 'react-daisyui';
 import { HomePrimaryBoxText } from '../components/home/HomePrimaryBoxText';
 import { HomeBoxButtons } from '../components/home/HomeBoxButtons';
 import { HomeSecondaryBoxText } from '../components/home/HomeSecondaryBoxText';
-import cardimg from './../assets/bg-image-home.jpg';
 import { FooterCopyright } from '../components/FooterCopyright';
 
 export const HomeScreen: React.FC<any> = (props) => {
 
   return (
     <>
-      <div className='bg-cover bg-fixed bg-center' style={{ backgroundImage: `url(${cardimg})` }}>
-        <body className='flex h-screen min-h-screen '>
-          <div className='m-auto'>
+      <div className='w-screen'>
+          <div className='flex min-h-screen'>
             <Hero>
-              {/* <Hero.Content className="flex-col lg:flex-row gap-y-5 gap-x-63 "> */}
-              <Hero.Content className="flex-col lg:flex-row m-auto">
-                <HomePrimaryBoxText></HomePrimaryBoxText>
-                <HomeBoxButtons></HomeBoxButtons>
-                <HomeSecondaryBoxText></HomeSecondaryBoxText>
+              <Hero.Content className="flex-col lg:flex-row ">
+                <HomePrimaryBoxText />
+                <HomeBoxButtons />
+                <HomeSecondaryBoxText />
               </Hero.Content>
             </Hero>
           </div>
-        </body>
-        <div className='flex h-screen '>
-          <FooterCopyright></FooterCopyright>
+        <div className=''>
+          <FooterCopyright />
         </div>
       </div>
     </>
