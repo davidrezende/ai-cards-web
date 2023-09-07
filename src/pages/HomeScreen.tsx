@@ -4,6 +4,7 @@ import { HomePrimaryBoxText } from '../components/home/HomePrimaryBoxText';
 import { HomeBoxButtons } from '../components/home/HomeBoxButtons';
 import { HomeSecondaryBoxText } from '../components/home/HomeSecondaryBoxText';
 import { FooterCopyright } from '../components/FooterCopyright';
+import GoogleAuth from '../components/GoogleAuth';
 
 export const HomeScreen: React.FC<any> = (props) => {
 
@@ -16,6 +17,7 @@ export const HomeScreen: React.FC<any> = (props) => {
                 <HomePrimaryBoxText />
                 <HomeBoxButtons />
                 <HomeSecondaryBoxText />
+                <GoogleAuth/>
               </Hero.Content>
             </Hero>
           </div>

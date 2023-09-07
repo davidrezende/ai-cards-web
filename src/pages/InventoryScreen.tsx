@@ -87,7 +87,7 @@ export const InventoryScreen: React.FC<any> = (props) => {
 
     useEffect(() => {
         console.log('listando cartas do usuario')
-        CardService.getAllCardsByuUser("ee4f4544-efa0-4e7b-93f1-a67b3d9a140c")
+        CardService.getAllCardsByUser("ee4f4544-efa0-4e7b-93f1-a67b3d9a140c")
             .then((response) => {
                 setCards(response.data)
                 console.log(response.data)
