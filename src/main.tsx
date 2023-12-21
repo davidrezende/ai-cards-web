@@ -5,6 +5,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { HomeScreen } from './pages/HomeScreen.tsx'
 import { CreateCardScreen } from './pages/CreateCardScreen.tsx'
 import { InventoryScreen } from './pages/InventoryScreen.tsx'
+import { LoginScreen } from './pages/LoginScreen.tsx'
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: "/cards",
     element: <InventoryScreen />,
+  },
+  {
+    path: "/login",
+    element: <LoginScreen />,
   },
 ]);
 
