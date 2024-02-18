@@ -1,11 +1,19 @@
 import React from "react"
+import { useNavigate } from 'react-router-dom'
 
 export const LoginScreen: React.FC<any> = (props) => {
+
+  const navigate = useNavigate()
+
+  function createAccount() {
+    navigate('/register')
+  }
+
   return (
-    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-white">
+    <div className="flex flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-white absolute bg-opacity-95">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-          Login
+          Login Ai-Cards
         </h2>
       </div>
 
@@ -62,7 +70,7 @@ export const LoginScreen: React.FC<any> = (props) => {
 
         <p className="mt-10 text-center text-sm text-gray-500">
           Ainda não tem cadastro?{' '}
-          <a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+          <a onClick={createAccount} className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
             Cadastre-se aqui.
           </a>
         </p>
@@ -70,4 +78,5 @@ export const LoginScreen: React.FC<any> = (props) => {
     </div>
   )
 }
+
 

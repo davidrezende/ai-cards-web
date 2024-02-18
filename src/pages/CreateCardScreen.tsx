@@ -4,9 +4,9 @@ import { CardCreateForm } from '../components/CardCreateForm';
 export const CreateCardScreen: React.FC<any> = (props) => {
 
     return (
-
-        <div className='h-screen w-screen flex flex-col justify-center items-center'>
+        <div className='absolute w-full justify-center flex flex-col items-center'>
             <CardCreateForm />
         </div>
     )
+
 }
