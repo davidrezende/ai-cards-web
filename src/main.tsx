@@ -7,6 +7,10 @@ import { CreateCardScreen } from './pages/CreateCardScreen.tsx'
 import { InventoryScreen } from './pages/InventoryScreen.tsx'
 import { LoginScreen } from './pages/LoginScreen.tsx'
 import Spline from '@splinetool/react-spline';
+import { RegisterScreen } from './pages/RegisterScreen.tsx'
+import AuthProvider from "react-auth-kit";
+import createStore from 'react-auth-kit/createStore';
+import RequireAuth from '@auth-kit/react-router/RequireAuth'
 
 const router = createBrowserRouter([
   {
@@ -15,24 +19,40 @@ const router = createBrowserRouter([
   },
   {
     path: "/card/create",
-    element: <CreateCardScreen />,
+    element: <RequireAuth fallbackPath='/login'>
+    <CreateCardScreen />
+  </RequireAuth>,
   },
   {
     path: "/cards",
-    element: <InventoryScreen />,
+    element: <RequireAuth fallbackPath='/login'>
+      <InventoryScreen />
+    </RequireAuth>,
   },
   {
     path: "/login",
     element: <LoginScreen />,
   },
+  {
+    path: "/register",
+    element: <RegisterScreen />,
+  }
 ]);
 
+const store = createStore({
+  authName: '_auth',
+  authType: 'cookie',
+  cookieDomain: window.location.hostname,
+  cookieSecure: false,
+});
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <div className='h-screen w-screen relative justify-center flex flex-col items-center flex-row'>
-      <Spline className="absolute" scene="https://prod.spline.design/mXKWOM99x7qsEGCF/scene.splinecode" />
-      <RouterProvider router={router} />
+      {/* <Spline className="absolute" scene="https://prod.spline.design/mXKWOM99x7qsEGCF/scene.splinecode" /> */}
+      <AuthProvider store={store}>
+        <RouterProvider router={router} />
+      </AuthProvider>
     </div>
   </React.StrictMode>,
 )

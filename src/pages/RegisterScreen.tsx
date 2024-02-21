@@ -1,62 +1,24 @@
-import axios from "axios"
-import React, { isValidElement } from "react"
-import useSignIn from "react-auth-kit/hooks/useSignIn"
+import React from "react"
 import { useNavigate } from 'react-router-dom'
-import { UserService } from "../services/ServiceUser"
 
-export const LoginScreen: React.FC<any> = (props) => {
+export const RegisterScreen: React.FC<any> = (props) => {
 
   const navigate = useNavigate()
-  const signIn = useSignIn()
 
-  function createAccount() {
+  function handleCreateAccount() {
     navigate('/register')
   }
 
-  const onSubmit = async (values: any) => {
-    console.log("Values: ", values.target[0].value);
-    console.log("Values: ", values.target[1].value);
-
-    await UserService.userLogin(
-      {
-        "email": values.target[0].value,
-        "password": values.target[1].value
-      }
-    ).then((response) => {
-      console.log("response:" + response.data.token)
-      signIn({
-        auth: {
-          token: response.data.token,
-          type: 'Bearer'
-        },
-        userState: {
-          email: values.target[0].value
-        }
-      })
-      navigate('/cards')
-    }).catch((error) => {
-      console.log(error)
-    })
-  }
-
-// nao reload no form
-  var form = document.getElementById("myForm");
-  function submitForm(event: any) {
-    event.preventDefault();
-  }
-
-  form?.addEventListener('submit', submitForm);
-
   return (
-    <div className="flex flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-white absolute bg-opacity-95">
+    <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8 bg-white">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-          Login Ai-Cards
+          Cadastro
         </h2>
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form id={"myForm"} className="space-y-6" onSubmit={onSubmit}>
+        <form className="space-y-6" action="#" method="POST">
           <div>
             <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
               Email
@@ -106,16 +68,14 @@ export const LoginScreen: React.FC<any> = (props) => {
           </div>
         </form>
 
-        <p className="mt-10 text-center text-sm text-gray-500">
-          Ainda não tem cadastro?{' '}
-          <a onClick={createAccount} className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-            Cadastre-se aqui.
+        <p className="px-10 mt-10 text-center text-sm text-gray-500">
+          Já tem cadastro?{' '}
+          <a onClick={handleCreateAccount} className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+            Entre aqui.
           </a>
         </p>
       </div>
     </div>
   )
 }
-
-
 
