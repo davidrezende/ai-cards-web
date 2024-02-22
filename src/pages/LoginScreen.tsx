@@ -1,5 +1,5 @@
 import axios from "axios"
-import React, { isValidElement } from "react"
+import React, { isValidElement, useState } from "react"
 import useSignIn from "react-auth-kit/hooks/useSignIn"
 import { useNavigate } from 'react-router-dom'
 import { UserService } from "../services/ServiceUser"
@@ -8,19 +8,21 @@ export const LoginScreen: React.FC<any> = (props) => {
 
   const navigate = useNavigate()
   const signIn = useSignIn()
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
 
   function createAccount() {
     navigate('/register')
   }
 
-  const onSubmit = async (values: any) => {
-    console.log("Values: ", values.target[0].value);
-    console.log("Values: ", values.target[1].value);
+  const onSubmit = async () => {
+    console.log("Values: ", email);
+    console.log("Values: ", password);
 
     await UserService.userLogin(
       {
-        "email": values.target[0].value,
-        "password": values.target[1].value
+        "email": email,
+        "password": password
       }
     ).then((response) => {
       console.log("response:" + response.data.token)
@@ -30,7 +32,7 @@ export const LoginScreen: React.FC<any> = (props) => {
           type: 'Bearer'
         },
         userState: {
-          email: values.target[0].value
+          email: email
         }
       })
       navigate('/cards')
@@ -56,7 +58,7 @@ export const LoginScreen: React.FC<any> = (props) => {
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form id={"myForm"} className="space-y-6" onSubmit={onSubmit}>
+        <form id={"myForm"} className="space-y-6">
           <div>
             <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
               Email
@@ -67,6 +69,7 @@ export const LoginScreen: React.FC<any> = (props) => {
                 name="email"
                 type="email"
                 autoComplete="email"
+                onChange={e => setEmail(e.target.value)}
                 required
                 className="bg-white indent-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
@@ -89,6 +92,7 @@ export const LoginScreen: React.FC<any> = (props) => {
                 id="password"
                 name="password"
                 type="password"
+                onChange={e => setPassword(e.target.value)}
                 autoComplete="current-password"
                 required
                 className="bg-white indent-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -98,7 +102,7 @@ export const LoginScreen: React.FC<any> = (props) => {
 
           <div>
             <button
-              type="submit"
+              onClick={onSubmit}
               className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
               Login
