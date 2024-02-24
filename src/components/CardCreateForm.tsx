@@ -6,6 +6,8 @@ import { QuestionService } from '../services/ServiceQuestions'
 import { useState, useEffect } from 'react';
 import IQuestionsRequest from '../shared/types/QuestionVO';
 import Loading from './QuestionLoading';
+import Cookies from 'js-cookie'
+
 export const CardCreateForm: React.FC<any> = (props) => {
 
   const [showLoading, setShowLoading] = useState(true)
@@ -86,18 +88,24 @@ export const CardCreateForm: React.FC<any> = (props) => {
 
   const handleCreateCardText = async () => {
     console.log('gerando texto')
-    await CardService.generateCardText(
-      {
-        "userId": "ee4f4544-efa0-4e7b-93f1-a67b3d9a140c",
-        "questions": questionsRequest
-      }
-    ).then((response) => {
-      setCardHashResponse(response.data.cardHash)
-      console.log("setando carhash")
-      console.log(cardHashResponse)
-    }).catch((error) => {
-      console.log(error)
-    })
+    if (Cookies.get('_auth_state') != "") {
+      const userId = `${Cookies.get('_auth_state')}`
+      const parseJsonUserId = JSON.parse(userId);
+      console.log('pegando userId:'+ parseJsonUserId.userId)
+
+      await CardService.generateCardText(
+        {
+          "userId": parseJsonUserId.userId,
+          "questions": questionsRequest
+        }
+      ).then((response) => {
+        setCardHashResponse(response.data.cardHash)
+        console.log("setando carhash")
+        console.log(cardHashResponse)
+      }).catch((error) => {
+        console.log(error)
+      })
+    }
   };
 
   const handleCreateCardImage = async () => {

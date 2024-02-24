@@ -3,6 +3,7 @@ import React, { isValidElement, useState } from "react"
 import useSignIn from "react-auth-kit/hooks/useSignIn"
 import { useNavigate } from 'react-router-dom'
 import { UserService } from "../services/ServiceUser"
+import jwt from "jsonwebtoken"
 
 export const LoginScreen: React.FC<any> = (props) => {
 
@@ -10,6 +11,7 @@ export const LoginScreen: React.FC<any> = (props) => {
   const signIn = useSignIn()
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
+  const [decodedToken, setDecodedToken] = useState<any | null>(null);
 
   function createAccount() {
     navigate('/register')
@@ -26,22 +28,30 @@ export const LoginScreen: React.FC<any> = (props) => {
       }
     ).then((response) => {
       console.log("response:" + response.data.token)
-      signIn({
-        auth: {
-          token: response.data.token,
-          type: 'Bearer'
-        },
-        userState: {
-          email: email
-        }
-      })
-      navigate('/cards')
+      if (response.data.token != "") {
+        const token = response.data.token;
+        const [header, payload, signature] = token.split('.');
+        const decodedPayload = atob(payload);
+        const parsedPayload = JSON.parse(decodedPayload);
+        const sub = parsedPayload.sub;
+        console.log("sub:" + sub); // Output: 1234567890
+        signIn({
+          auth: {
+            token: response.data.token,
+            type: 'Bearer'
+          },
+          userState: {
+            userId: sub
+          }
+        })
+        navigate('/cards')
+      }
     }).catch((error) => {
       console.log(error)
     })
   }
 
-// nao reload no form
+  // nao reload no form
   var form = document.getElementById("myForm");
   function submitForm(event: any) {
     event.preventDefault();

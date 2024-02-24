@@ -4,7 +4,7 @@ import Card from '../shared/types/CardVO';
 import { CardBox } from '../components/CardBox';
 import { MenuProfile } from '../components/MenuProfile';
 import { NavbarApp } from '../components/NavbarApp';
-
+import Cookies from 'js-cookie'
 
 type DialogProps = {
     isOpen: boolean;
@@ -87,13 +87,19 @@ export const InventoryScreen: React.FC<any> = (props) => {
 
     useEffect(() => {
         console.log('listando cartas do usuario')
-        CardService.getAllCardsByUser("ee4f4544-efa0-4e7b-93f1-a67b3d9a140c")
-            .then((response) => {
-                setCards(response.data)
-                console.log(response.data)
-            }).catch((error) => {
-                console.log(error)
-            })
+        if (Cookies.get('_auth_state') != "") {
+            console.log('listando cartas do usuario')
+            const userId = `${Cookies.get('_auth_state')}`
+            const parseJsonUserId = JSON.parse(userId);
+            CardService.getAllCardsByUser(parseJsonUserId.userId)
+                .then((response) => {
+                    setCards(response.data)
+                    console.log(response.data)
+                }).catch((error) => {
+                    console.log(error)
+                })
+        }
+
     }, [])
 
     return (
