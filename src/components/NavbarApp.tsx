@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Dropdown, Menu, Navbar } from 'react-daisyui';
+import Cookies from 'js-cookie'
 
 export const NavbarApp: React.FC<any> = (props) => {
 
@@ -42,7 +43,7 @@ export const NavbarApp: React.FC<any> = (props) => {
         </Menu>
       </Navbar.Center>
       <Navbar.End>
-        <Button className='mr-5 rounded-lg'>Entrar</Button>
+        <Button className='mr-5 rounded-lg'>Sair</Button>
       </Navbar.End>
     </Navbar>
   </div>

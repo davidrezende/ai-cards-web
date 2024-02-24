@@ -1,9 +1,10 @@
 import axios from "axios"
-import React, { isValidElement, useState } from "react"
+import React, { isValidElement, useEffect, useState } from "react"
 import useSignIn from "react-auth-kit/hooks/useSignIn"
 import { useNavigate } from 'react-router-dom'
 import { UserService } from "../services/ServiceUser"
 import jwt from "jsonwebtoken"
+import Cookies from 'js-cookie'
 
 export const LoginScreen: React.FC<any> = (props) => {
 
@@ -11,7 +12,13 @@ export const LoginScreen: React.FC<any> = (props) => {
   const signIn = useSignIn()
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
-  const [decodedToken, setDecodedToken] = useState<any | null>(null);
+
+  useEffect(() => {
+    console.log('verificando se usuario logado')
+    if (Cookies.get('_auth_state') != "") {
+      navigate('/cards')
+    }
+  }, [])
 
   function createAccount() {
     navigate('/register')
