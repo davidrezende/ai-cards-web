@@ -6,10 +6,14 @@ import { QuestionService } from '../services/ServiceQuestions'
 import { useState, useEffect } from 'react';
 import IQuestionsRequest from '../shared/types/QuestionVO';
 import Loading from './QuestionLoading';
-import Cookies from 'js-cookie'
+import useAuthUser from 'react-auth-kit/hooks/useAuthUser'
+import useIsAuthenticated from 'react-auth-kit/hooks/useIsAuthenticated'
+import IUserData from '../shared/types/ResponseUserData';
 
 export const CardCreateForm: React.FC<any> = (props) => {
 
+  const authUser = useAuthUser<IUserData>()
+  const isAuthenticated = useIsAuthenticated()
   const [showLoading, setShowLoading] = useState(true)
   const [qt, setQt] = useState<number>(0)
   const [questions, setQuestions] = useState<any[]>([''])
@@ -88,14 +92,11 @@ export const CardCreateForm: React.FC<any> = (props) => {
 
   const handleCreateCardText = async () => {
     console.log('gerando texto')
-    if (Cookies.get('_auth_state') != "") {
-      const userId = `${Cookies.get('_auth_state')}`
-      const parseJsonUserId = JSON.parse(userId);
-      console.log('pegando userId:'+ parseJsonUserId.userId)
-
+    if (isAuthenticated()) {
+      console.log('pegando userId:'+ authUser?.userId)
       await CardService.generateCardText(
         {
-          "userId": parseJsonUserId.userId,
+          "userId": authUser?.userId!,
           "questions": questionsRequest
         }
       ).then((response) => {

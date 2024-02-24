@@ -5,6 +5,9 @@ import { CardBox } from '../components/CardBox';
 import { MenuProfile } from '../components/MenuProfile';
 import { NavbarApp } from '../components/NavbarApp';
 import Cookies from 'js-cookie'
+import useAuthUser from 'react-auth-kit/hooks/useAuthUser'
+import useIsAuthenticated from 'react-auth-kit/hooks/useIsAuthenticated'
+import IUserData from '../shared/types/ResponseUserData';
 
 type DialogProps = {
     isOpen: boolean;
@@ -72,6 +75,8 @@ const Dialog: React.FC<DialogProps> = ({ isOpen, onClose, cardPopup }) => {
 export default Dialog;
 
 export const InventoryScreen: React.FC<any> = (props) => {
+    const authUser = useAuthUser<IUserData>()
+    const isAuthenticated = useIsAuthenticated()
     const [cards, setCards] = useState<Card[]>()
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [cardPopup, setCardPopup] = useState<Card>()
@@ -84,14 +89,12 @@ export const InventoryScreen: React.FC<any> = (props) => {
         setCardPopup(cardPopup);
         setIsDialogOpen(true);
     }
-
+       
     useEffect(() => {
         console.log('listando cartas do usuario')
-        if (Cookies.get('_auth_state') != "") {
+        if (isAuthenticated()) {
             console.log('listando cartas do usuario')
-            const userId = `${Cookies.get('_auth_state')}`
-            const parseJsonUserId = JSON.parse(userId);
-            CardService.getAllCardsByUser(parseJsonUserId.userId)
+            CardService.getAllCardsByUser(authUser!.userId)
                 .then((response) => {
                     setCards(response.data)
                     console.log(response.data)

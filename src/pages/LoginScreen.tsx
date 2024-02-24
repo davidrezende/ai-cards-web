@@ -1,13 +1,12 @@
-import axios from "axios"
-import React, { isValidElement, useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import useSignIn from "react-auth-kit/hooks/useSignIn"
 import { useNavigate } from 'react-router-dom'
 import { UserService } from "../services/ServiceUser"
-import jwt from "jsonwebtoken"
-import Cookies from 'js-cookie'
+import useIsAuthenticated from 'react-auth-kit/hooks/useIsAuthenticated'
 
 export const LoginScreen: React.FC<any> = (props) => {
 
+  const isAuthenticated = useIsAuthenticated()
   const navigate = useNavigate()
   const signIn = useSignIn()
   const [email, setEmail] = useState<string>('')
@@ -15,7 +14,7 @@ export const LoginScreen: React.FC<any> = (props) => {
 
   useEffect(() => {
     console.log('verificando se usuario logado')
-    if (Cookies.get('_auth_state') != "") {
+    if (isAuthenticated()) {
       navigate('/cards')
     }
   }, [])
@@ -35,7 +34,7 @@ export const LoginScreen: React.FC<any> = (props) => {
       }
     ).then((response) => {
       console.log("response:" + response.data.token)
-      if (response.data.token != "") {
+      if (isAuthenticated() == false ) {
         const token = response.data.token;
         const [header, payload, signature] = token.split('.');
         const decodedPayload = atob(payload);
@@ -44,7 +43,7 @@ export const LoginScreen: React.FC<any> = (props) => {
         console.log("sub:" + sub); // Output: 1234567890
         signIn({
           auth: {
-            token: response.data.token,
+            token: token,
             type: 'Bearer'
           },
           userState: {
