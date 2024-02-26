@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Card, Form } from 'react-daisyui';
 
-export const HomeBoxButtons: React.FC<any> = (props) => {
+export const HomeBoxButtons: React.FC<any> = () => {
 
   return (
     <Card className="flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100 bg-opacity-80">

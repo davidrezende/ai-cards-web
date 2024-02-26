@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Dropdown, Menu, Navbar } from 'react-daisyui';
 
-export const NavbarApp: React.FC<any> = (props) => {
+export const NavbarApp: React.FC<any> = () => {
 
   return (
     <div className="flex w-full component-preview p-4 items-center justify-center gap-2 font-sans">
@@ -42,7 +42,7 @@ export const NavbarApp: React.FC<any> = (props) => {
         </Menu>
       </Navbar.Center>
       <Navbar.End>
-        <Button className='mr-5 rounded-lg'>Entrar</Button>
+        <Button className='mr-5 rounded-lg'>Sair</Button>
       </Navbar.End>
     </Navbar>
   </div>
