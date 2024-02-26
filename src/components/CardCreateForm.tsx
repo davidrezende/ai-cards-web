@@ -6,8 +6,14 @@ import { QuestionService } from '../services/ServiceQuestions'
 import { useState, useEffect } from 'react';
 import IQuestionsRequest from '../shared/types/QuestionVO';
 import Loading from './QuestionLoading';
-export const CardCreateForm: React.FC<any> = (props) => {
+import useAuthUser from 'react-auth-kit/hooks/useAuthUser'
+import useIsAuthenticated from 'react-auth-kit/hooks/useIsAuthenticated'
+import IUserData from '../shared/types/ResponseUserData';
 
+export const CardCreateForm: React.FC<any> = () => {
+
+  const authUser = useAuthUser<IUserData>()
+  const isAuthenticated = useIsAuthenticated()
   const [showLoading, setShowLoading] = useState(true)
   const [qt, setQt] = useState<number>(0)
   const [questions, setQuestions] = useState<any[]>([''])
@@ -86,10 +92,31 @@ export const CardCreateForm: React.FC<any> = (props) => {
 
   const handleCreateCardText = async () => {
     console.log('gerando texto')
-    await CardService.generateCardText(
+    if (isAuthenticated()) {
+      console.log('pegando userId:'+ authUser?.userId)
+      await CardService.generateCardText(
+        {
+          "userId": authUser?.userId!,
+          "questions": questionsRequest
+        }
+      ).then((response) => {
+        setCardHashResponse(response.data.cardHash)
+        console.log("setando carhash")
+        console.log(cardHashResponse)
+      }).catch((error) => {
+        console.log(error)
+      })
+    }
+  };
+
+  const handleCreateCardImage = async () => {
+    console.log(cardHashResponse)
+    console.log("criando image")
+    console.log(imageAnswer)
+    await CardService.generateCardImage(
       {
-        "userId": "ee4f4544-efa0-4e7b-93f1-a67b3d9a140c",
-        "questions": questionsRequest
+        "cardHash": cardHashResponse,
+        "prompt": imageAnswer
       }
     ).then((response) => {
       setCardHashResponse(response.data.cardHash)
@@ -98,7 +125,41 @@ export const CardCreateForm: React.FC<any> = (props) => {
     }).catch((error) => {
       console.log(error)
     })
-  };
+  }
+
+  const handleUpdateCardName = async () => {
+    console.log("settando card name: " + nameAnswer)
+    await CardService.updateCardName(
+      {
+        "cardHash": cardHashResponse,
+        "name": nameAnswer
+      }
+    ).then((response) => {
+      console.log(response.data)
+    }).catch((error) => {
+      console.log(error)
+    })
+  }
+
+  function timeLoading() {
+    setTimeout(() => {
+      setShowLoading(true)
+    }, 1200)
+    setShowLoading(false)
+  }
+
+  function handleImageOnClick() {
+    timeLoading()
+    setChange(change + 1)
+    setSteps(steps + 1)
+    handleCreateCardImage()
+  }
+
+  function handleNameOnClick() {
+    timeLoading()
+    handleUpdateCardName()
+    navigate('/cards')
+  }
 
   const handleCreateCardImage = async () => {
     console.log(cardHashResponse)
@@ -153,21 +214,21 @@ export const CardCreateForm: React.FC<any> = (props) => {
   return (
     <>
       {showLoading &&
-        <div className='inline-grid lg:grid-flow-col w-full lg:w-1/2 md:w-2/3 max-w-4xl'>
+        <div className='inline-grid lg:grid-flow-col w-full lg:w-1/2 md:w-2/3 max-w-4xl text-white font-bold'>
           <ul className="steps pb-9 w-full">
-            <li className="step step-primary">Características</li>
-            <li className={`step ${steps >= 2 ? "step-primary" : null}`}>Cenário</li>
-            <li className={`step ${steps >= 3 ? "step-primary" : null}`}>Trama</li>
+            <li className="step step-secondary">Características</li>
+            <li className={`step ${steps >= 2 ? "step-secondary" : null}`}>Cenário</li>
+            <li className={`step ${steps >= 3 ? "step-secondary" : null}`}>Trama</li>
           </ul>
           <ul className="steps pb-9 w-full">
-            <li className={`step ${steps >= 4 ? "step-error" : null}`} data-content="4">Imagem</li>
-            <li className={`step ${steps >= 5 ? "step-error" : null}`} data-content="5">Nome</li>
+            <li className={`step ${steps >= 4 ? "step-accent" : null}`} data-content="4">Imagem</li>
+            <li className={`step ${steps >= 5 ? "step-accent" : null}`} data-content="5">Nome</li>
           </ul>
         </div>
       }
       {change == 0 ?
         <>
-          <div className='bg-base-300 p-9 bg-opacity-95 rounded-lg w-11/12 lg:w-1/2 md:w-2/3 max-w-4xl'>
+          <div className='bg-base-300 p-9 bg-opacity-90 rounded-lg w-11/12 lg:w-1/2 md:w-2/3 max-w-4xl'>
             {showLoading ?
               <>
                 <div className='animate-bounce font-extrabold text-base font-sans boboca text-center pt-4 lg:pb-3'>
@@ -184,11 +245,11 @@ export const CardCreateForm: React.FC<any> = (props) => {
                 <div className='inline-grid lg:grid-flow-col justify-stretch w-full items-center space-y-1 lg:space-y-0 lg:space-x-3'>
                   {qt > 0 &&
                     <button
-                      className='btn w-full text-base text-white bg-primary btn-active font-bold lg:text-xl font-mono normal-case'
+                      className='btn w-full text-base text-white bg-lime-500 btn-active font-bold lg:text-xl font-mono normal-case'
                       onClick={handlePreviousQuestion}>Voltar Pergunta</button>
                   }
                   <button
-                    className='btn w-full text-base text-white bg-primary btn-active font-bold lg:text-xl font-mono normal-case'
+                    className='btn w-full text-base text-white bg-lime-500 btn-active font-bold lg:text-xl font-mono normal-case'
                     onClick={handleNextTextQuestion}>Próxima Pergunta</button>
                 </div>
               </>
@@ -213,7 +274,7 @@ export const CardCreateForm: React.FC<any> = (props) => {
                   </div>
                   <div className='inline-grid lg:grid-flow-col justify-stretch w-full items-center space-y-1 lg:space-y-0 lg:space-x-3'>
                     <button
-                      className='btn w-full text-base text-white bg-primary btn-active font-bold lg:text-xl font-mono normal-case'
+                      className='btn w-full text-base text-white bg-lime-500 btn-active font-bold lg:text-xl font-mono normal-case'
                       onClick={handleImageOnClick}>Criar Imagem da Carta</button>
                   </div>
                 </>
@@ -238,7 +299,7 @@ export const CardCreateForm: React.FC<any> = (props) => {
                     </div>
                     <div className='inline-grid lg:grid-flow-col justify-stretch w-full items-center space-y-1 lg:space-y-0 lg:space-x-3'>
                       <button
-                        className='btn w-full text-base text-white bg-primary btn-active font-bold lg:text-2xl font-mono normal-case'
+                        className='btn w-full text-base text-white bg-lime-500 btn-active font-bold lg:text-2xl font-mono normal-case'
                         onClick={handleNameOnClick}>Finalizar!</button>
                     </div>
                   </>
@@ -250,8 +311,4 @@ export const CardCreateForm: React.FC<any> = (props) => {
     </>
   )
 
-}
-
-function delay(arg0: number) {
-  throw new Error('Function not implemented.');
 }

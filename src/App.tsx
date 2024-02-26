@@ -1,10 +1,6 @@
 import './App.css'
 import { Theme } from 'react-daisyui'
-import { FooterCopyright } from './components/FooterCopyright'
-import { NavbarApp } from './components/NavbarApp'
-import { HomeScreen } from './pages/HomeScreen'
 import cardimg from './assets/background-home.jpg';
-import { CreateCardScreen } from './pages/CreateCardScreen'
 
 function App() {
 

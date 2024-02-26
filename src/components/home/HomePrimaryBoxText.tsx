@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const HomePrimaryBoxText: React.FC<any> = (props) => {
+export const HomePrimaryBoxText: React.FC<any> = () => {
 
   return (
     <div className="text-center lg:text-left rounded-lg bg-base-100 bg-opacity-80 p-10">

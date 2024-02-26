@@ -4,7 +4,9 @@ import Card from '../shared/types/CardVO';
 import { CardBox } from '../components/CardBox';
 import { MenuProfile } from '../components/MenuProfile';
 import { NavbarApp } from '../components/NavbarApp';
-
+import useAuthUser from 'react-auth-kit/hooks/useAuthUser'
+import useIsAuthenticated from 'react-auth-kit/hooks/useIsAuthenticated'
+import IUserData from '../shared/types/ResponseUserData';
 
 type DialogProps = {
     isOpen: boolean;
@@ -71,7 +73,9 @@ const Dialog: React.FC<DialogProps> = ({ isOpen, onClose, cardPopup }) => {
 
 export default Dialog;
 
-export const InventoryScreen: React.FC<any> = (props) => {
+export const InventoryScreen: React.FC<any> = () => {
+    const authUser = useAuthUser<IUserData>()
+    const isAuthenticated = useIsAuthenticated()
     const [cards, setCards] = useState<Card[]>()
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [cardPopup, setCardPopup] = useState<Card>()
@@ -84,16 +88,18 @@ export const InventoryScreen: React.FC<any> = (props) => {
         setCardPopup(cardPopup);
         setIsDialogOpen(true);
     }
-
     useEffect(() => {
         console.log('listando cartas do usuario')
-        CardService.getAllCardsByuUser("ee4f4544-efa0-4e7b-93f1-a67b3d9a140c")
-            .then((response) => {
-                setCards(response.data)
-                console.log(response.data)
-            }).catch((error) => {
-                console.log(error)
-            })
+        if (isAuthenticated()) {
+            console.log('listando cartas do usuario')
+            CardService.getAllCardsByUser(authUser!.userId)
+                .then((response) => {
+                    setCards(response.data)
+                    console.log(response.data)
+                }).catch((error) => {
+                    console.log(error)
+                })
+        }
     }, [])
 
     return (

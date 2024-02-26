@@ -1,7 +1,7 @@
 import React from 'react';
 import { Footer } from 'react-daisyui';
 
-export const FooterCopyright: React.FC<any> = (props) => {
+export const FooterCopyright: React.FC<any> = () => {
 
   return (
     <Footer className="p-5 bg-base-100 text-secondary-content bg-opacity-80 ">

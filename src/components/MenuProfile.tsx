@@ -1,8 +1,7 @@
 import React from 'react';
-import { Button, Card, Form } from 'react-daisyui';
-import cardimg from './../assets/magonegro.png';
+import { Card } from 'react-daisyui';
 
-export const MenuProfile: React.FC<any> = (props) => {
+export const MenuProfile: React.FC<any> = () => {
 
   return (
     <Card className="w-full sm:w-1/3 lg:w-full items-center shadow-2xl bg-base-100 bg-opacity-80">
