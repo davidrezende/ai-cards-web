@@ -119,6 +119,58 @@ export const CardCreateForm: React.FC<any> = () => {
         "prompt": imageAnswer
       }
     ).then((response) => {
+      setCardHashResponse(response.data.cardHash)
+      console.log("setando carhash")
+      console.log(cardHashResponse)
+    }).catch((error) => {
+      console.log(error)
+    })
+  }
+
+  const handleUpdateCardName = async () => {
+    console.log("settando card name: " + nameAnswer)
+    await CardService.updateCardName(
+      {
+        "cardHash": cardHashResponse,
+        "name": nameAnswer
+      }
+    ).then((response) => {
+      console.log(response.data)
+    }).catch((error) => {
+      console.log(error)
+    })
+  }
+
+  function timeLoading() {
+    setTimeout(() => {
+      setShowLoading(true)
+    }, 1200)
+    setShowLoading(false)
+  }
+
+  function handleImageOnClick() {
+    timeLoading()
+    setChange(change + 1)
+    setSteps(steps + 1)
+    handleCreateCardImage()
+  }
+
+  function handleNameOnClick() {
+    timeLoading()
+    handleUpdateCardName()
+    navigate('/cards')
+  }
+
+  const handleCreateCardImage = async () => {
+    console.log(cardHashResponse)
+    console.log("criando image")
+    console.log(imageAnswer)
+    await CardService.generateCardImage(
+      {
+        "cardHash": cardHashResponse,
+        "prompt": imageAnswer
+      }
+    ).then((response) => {
       console.log(response)
     }).catch((error) => {
       console.log(error)

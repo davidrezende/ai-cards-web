@@ -88,7 +88,6 @@ export const InventoryScreen: React.FC<any> = () => {
         setCardPopup(cardPopup);
         setIsDialogOpen(true);
     }
-       
     useEffect(() => {
         console.log('listando cartas do usuario')
         if (isAuthenticated()) {
@@ -101,7 +100,6 @@ export const InventoryScreen: React.FC<any> = () => {
                     console.log(error)
                 })
         }
-
     }, [])
 
     return (
