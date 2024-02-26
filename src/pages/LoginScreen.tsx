@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { UserService } from "../services/ServiceUser"
 import useIsAuthenticated from 'react-auth-kit/hooks/useIsAuthenticated'
 
-export const LoginScreen: React.FC<any> = (props) => {
+export const LoginScreen: React.FC<any> = () => {
 
   const isAuthenticated = useIsAuthenticated()
   const navigate = useNavigate()
@@ -36,7 +36,7 @@ export const LoginScreen: React.FC<any> = (props) => {
       console.log("response:" + response.data.token)
       if (isAuthenticated() == false ) {
         const token = response.data.token;
-        const [header, payload, signature] = token.split('.');
+        const [payload] = token.split('.');
         const decodedPayload = atob(payload);
         const parsedPayload = JSON.parse(decodedPayload);
         const sub = parsedPayload.sub;

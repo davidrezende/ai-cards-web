@@ -49,7 +49,7 @@ const store = createStore({
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <div className='h-screen w-screen relative justify-center flex flex-col items-center flex-row'>
-      {/* <Spline className="absolute" scene="https://prod.spline.design/mXKWOM99x7qsEGCF/scene.splinecode" /> */}
+      { <Spline className="absolute" scene="https://prod.spline.design/mXKWOM99x7qsEGCF/scene.splinecode" /> }
       <AuthProvider store={store}>
         <RouterProvider router={router} />
       </AuthProvider>

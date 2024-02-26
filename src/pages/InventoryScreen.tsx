@@ -4,7 +4,6 @@ import Card from '../shared/types/CardVO';
 import { CardBox } from '../components/CardBox';
 import { MenuProfile } from '../components/MenuProfile';
 import { NavbarApp } from '../components/NavbarApp';
-import Cookies from 'js-cookie'
 import useAuthUser from 'react-auth-kit/hooks/useAuthUser'
 import useIsAuthenticated from 'react-auth-kit/hooks/useIsAuthenticated'
 import IUserData from '../shared/types/ResponseUserData';
@@ -74,7 +73,7 @@ const Dialog: React.FC<DialogProps> = ({ isOpen, onClose, cardPopup }) => {
 
 export default Dialog;
 
-export const InventoryScreen: React.FC<any> = (props) => {
+export const InventoryScreen: React.FC<any> = () => {
     const authUser = useAuthUser<IUserData>()
     const isAuthenticated = useIsAuthenticated()
     const [cards, setCards] = useState<Card[]>()

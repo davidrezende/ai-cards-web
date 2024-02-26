@@ -1,7 +1,7 @@
 import React from "react"
 import { useNavigate } from 'react-router-dom'
 
-export const RegisterScreen: React.FC<any> = (props) => {
+export const RegisterScreen: React.FC<any> = () => {
 
   const navigate = useNavigate()
 

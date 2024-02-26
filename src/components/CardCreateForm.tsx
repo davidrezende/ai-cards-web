@@ -10,7 +10,7 @@ import useAuthUser from 'react-auth-kit/hooks/useAuthUser'
 import useIsAuthenticated from 'react-auth-kit/hooks/useIsAuthenticated'
 import IUserData from '../shared/types/ResponseUserData';
 
-export const CardCreateForm: React.FC<any> = (props) => {
+export const CardCreateForm: React.FC<any> = () => {
 
   const authUser = useAuthUser<IUserData>()
   const isAuthenticated = useIsAuthenticated()
@@ -259,8 +259,4 @@ export const CardCreateForm: React.FC<any> = (props) => {
     </>
   )
 
-}
-
-function delay(arg0: number) {
-  throw new Error('Function not implemented.');
 }

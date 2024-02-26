@@ -1,8 +1,7 @@
 import React from 'react';
 import { Button, Dropdown, Menu, Navbar } from 'react-daisyui';
-import Cookies from 'js-cookie'
 
-export const NavbarApp: React.FC<any> = (props) => {
+export const NavbarApp: React.FC<any> = () => {
 
   return (
     <div className="flex w-full component-preview p-4 items-center justify-center gap-2 font-sans">

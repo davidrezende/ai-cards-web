@@ -1,0 +1,45 @@
+name: Build project and send to AWS S3
+on:
+  push:
+    branches:
+      - develop
+jobs:
+  build-project:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Building for Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Instalando dependencias
+        run: yarn install
+      - name: Construindo aterfato
+        run: yarn run build
+      - uses: actions/upload-artifact@v3
+        with:
+          name: build-folder
+          path: ./dist
+  upload-to-s3:
+    needs: build-project
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Configurando credenciais AWS
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: build-folder
+          path: ./dist
+      - name: Subindo pasta para S3
+        run: |
+          aws s3 cp dist s3://${{ secrets.AWS_S3_BUCKET_HOMOL }} --recursive --acl public-read

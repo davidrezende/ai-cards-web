@@ -5,7 +5,7 @@ import { HomeBoxButtons } from '../components/home/HomeBoxButtons';
 import { HomeSecondaryBoxText } from '../components/home/HomeSecondaryBoxText';
 import { FooterCopyright } from '../components/FooterCopyright';
 
-export const HomeScreen: React.FC<any> = (props) => {
+export const HomeScreen: React.FC<any> = () => {
 
   return (
     <>
