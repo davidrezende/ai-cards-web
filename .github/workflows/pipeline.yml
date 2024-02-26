@@ -43,3 +43,4 @@ jobs:
       - name: Subindo pasta para S3
         run: |
           aws s3 cp dist s3://${{ secrets.AWS_S3_BUCKET_PRD }} --recursive --acl public-read
+          aws s3 cp dist s3://www.${{ secrets.AWS_S3_BUCKET_PRD }} --recursive --acl public-read
