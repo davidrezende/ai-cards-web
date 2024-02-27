@@ -36,7 +36,7 @@ export const LoginScreen: React.FC<any> = () => {
       console.log("response:" + response.data.token)
       if (isAuthenticated() == false ) {
         const token = response.data.token;
-        const [payload] = token.split('.');
+        const [, payload, ] = token.split('.');
         const decodedPayload = atob(payload);
         const parsedPayload = JSON.parse(decodedPayload);
         const sub = parsedPayload.sub;

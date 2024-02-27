@@ -107,13 +107,13 @@ export const InventoryScreen: React.FC<any> = () => {
             <Dialog isOpen={isDialogOpen} onClose={handleCloseDialog} cardPopup={cardPopup} />
             <div className='h-screen w-screen lg:flex lg:flex-col lg:overflow-auto'>
                 <NavbarApp />
-                <div className="flex flex-col lg:flex-row lg:h-full p-5">
-                    <div className="p-10 flex h-full card bg-base-300 rounded-box justify-center items-center">
+                <div className="flex flex-col lg:flex-row p-5 h-full">
+                    <div className="p-10 w-2/6 flex h-full card bg-base-300 rounded-box justify-center items-center">
                         <MenuProfile />
                     </div>
                     <div className="divider lg:divider-horizontal">
                     </div>
-                    <div className="p-5 sm:p-10 md:p-5 card bg-base-200 rounded-box overflow-auto h-full">
+                    <div className="p-5 w-full sm:p-10 md:p-5 card bg-base-200 rounded-box overflow-auto h-full">
 
                         <p className='pb-5 text-start font-bold text-xl subpixel-antialiased'> Deck ({!!cards ? cards.length : '0'})</p>
                         <div className="lg:max-h-px grid grid-cols-2 gap-5 md:gap-3 lg:gap-6 lg:grid-cols-6 md:grid-cols-4 sm:p-5">
