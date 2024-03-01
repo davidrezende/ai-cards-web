@@ -6,8 +6,6 @@ on:
 jobs:
   build-project:
     runs-on: ubuntu-latest
-    env:
-      AI_CARDS_API_URL: ${{ secrets.AI_CARDS_API_URL}}
     strategy:
       matrix:
         node-version: [18.x]
@@ -17,9 +15,11 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Installing dependencies
+      - name: Set Environment Variable
+        run: echo "AI_CARDS_API_URL=${{ secrets.AI_CARDS_API_URL}}" >> $GITHUB_ENV
+      - name: Instalando dependencias
         run: yarn install
-      - name: Build artifact
+      - name: Construindo aterfato
         run: yarn run build
       - uses: actions/upload-artifact@v3
         with:
@@ -31,7 +31,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Configuring credentials in AWS
+      - name: Configurando credenciais AWS
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
@@ -42,7 +42,7 @@ jobs:
         with:
           name: build-folder
           path: ./dist
-      - name: Upload to bucket S3
+      - name: Subindo pasta para S3
         run: |
           aws s3 cp dist s3://${{ secrets.AWS_S3_BUCKET_PRD }} --recursive --acl public-read
           aws s3 cp dist s3://www.${{ secrets.AWS_S3_BUCKET_PRD }} --recursive --acl public-read
