@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Cookies from 'js-cookie'
 
-export const BASE_URL = import.meta.env.AI_CARDS_API_URL; // 'http://localhost:8080'
+export const BASE_URL = 'https://api.eufor-ia.com'
 export const CardAPI = axios.create({
   baseURL: BASE_URL + '/v1/card',
   headers: {
