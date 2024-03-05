@@ -20,7 +20,11 @@ export const FooterCopyright: React.FC<any> = () => {
       <p>
         <i>Eufor</i><b>IA</b>
         <br />
-        made with ❤️ since 2023
+        "O jogo onde cada decisão é uma obra-prima de realidade,
+        <br />
+        e cada herói ou vilão é uma invenção do seu coração."
+        <br /><br />
+        feito com ❤️ desde 2023
       </p>
     </div>
   </Footer> 
