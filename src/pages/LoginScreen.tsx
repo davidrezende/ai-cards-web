@@ -36,7 +36,7 @@ export const LoginScreen: React.FC<any> = () => {
       console.log("response:" + response.data.token)
       if (isAuthenticated() == false ) {
         const token = response.data.token;
-        const [payload] = token.split('.');
+        const [, payload, ] = token.split('.');
         const decodedPayload = atob(payload);
         const parsedPayload = JSON.parse(decodedPayload);
         const sub = parsedPayload.sub;
@@ -66,7 +66,7 @@ export const LoginScreen: React.FC<any> = () => {
   form?.addEventListener('submit', submitForm);
 
   return (
-    <div className="flex flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-white absolute bg-opacity-95">
+    <div className="w-1/4 justify-center px-6 py-12 lg:px-9 bg-white absolute bg-opacity-95">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
           Login Ai-Cards
@@ -128,7 +128,7 @@ export const LoginScreen: React.FC<any> = () => {
 
         <p className="mt-10 text-center text-sm text-gray-500">
           Ainda não tem cadastro?{' '}
-          <a onClick={createAccount} className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+          <a onClick={createAccount} className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500 cursor-pointer">
             Cadastre-se aqui.
           </a>
         </p>
