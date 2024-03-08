@@ -108,7 +108,7 @@ export const InventoryScreen: React.FC<any> = () => {
             <div className='h-screen w-screen lg:flex lg:flex-col lg:overflow-auto'>
                 <NavbarApp />
                 <div className="flex flex-col lg:flex-row p-5 h-full">
-                    <div className="p-10 lg:w-2/6 md:w-full flex h-full card bg-base-300 rounded-box justify-center items-center">
+                    <div className="p-5 lg:w-1/6 md:w-full flex h-full card bg-base-300 rounded-box justify-center items-center">
                         <MenuProfile />
                     </div>
                     <div className="divider lg:divider-horizontal">

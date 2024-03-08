@@ -19,14 +19,15 @@ const router = createBrowserRouter([
   {
     path: "/card/create",
     element: <RequireAuth fallbackPath='/login'>
-    <CreateCardScreen />
-  </RequireAuth>,
+      <CreateCardScreen />
+    </RequireAuth>,
   },
   {
     path: "/cards",
-    element: <RequireAuth fallbackPath='/login'>
-      <InventoryScreen />
-    </RequireAuth>,
+    element:
+      <RequireAuth fallbackPath='/login'>
+        <InventoryScreen />
+      </RequireAuth>
   },
   {
     path: "/login",
