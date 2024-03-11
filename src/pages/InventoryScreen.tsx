@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { CardService } from '../services/ServiceCard';
+import useCardService from '../services/ServiceCard';
 import Card from '../shared/types/CardVO';
 import { CardBox } from '../components/CardBox';
 import { MenuProfile } from '../components/MenuProfile';
@@ -79,6 +79,7 @@ export const InventoryScreen: React.FC<any> = () => {
     const [cards, setCards] = useState<Card[]>()
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [cardPopup, setCardPopup] = useState<Card>()
+    const { getAllCardsByUser } = useCardService();
 
     const handleCloseDialog = () => {
         setIsDialogOpen(false);
@@ -89,10 +90,10 @@ export const InventoryScreen: React.FC<any> = () => {
         setIsDialogOpen(true);
     }
     useEffect(() => {
-        console.log('listando cartas do usuario')
+        console.log('verificando se usuario autenticado')
         if (isAuthenticated()) {
             console.log('listando cartas do usuario')
-            CardService.getAllCardsByUser(authUser!.userId)
+            getAllCardsByUser(authUser!.userId)
                 .then((response) => {
                     setCards(response.data)
                     console.log(response.data)

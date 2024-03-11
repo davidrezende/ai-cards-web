@@ -1,8 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom'
 import { Input } from 'react-daisyui';
-import { CardService } from '../services/ServiceCard';
-import { QuestionService } from '../services/ServiceQuestions'
+import useCardService from '../services/ServiceCard';
+import useQuestionService from '../services/ServiceQuestions'
 import { useState, useEffect } from 'react';
 import IQuestionsRequest from '../shared/types/QuestionVO';
 import Loading from './QuestionLoading';
@@ -11,6 +11,9 @@ import useIsAuthenticated from 'react-auth-kit/hooks/useIsAuthenticated'
 import IUserData from '../shared/types/ResponseUserData';
 
 export const CardCreateForm: React.FC<any> = () => {
+
+  const { generateCardText, generateCardImage, updateCardName } = useCardService();
+  const { getAllQuestions } = useQuestionService();
 
   const authUser = useAuthUser<IUserData>()
   const isAuthenticated = useIsAuthenticated()
@@ -31,7 +34,10 @@ export const CardCreateForm: React.FC<any> = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    QuestionService.getAllQuestions.then((data) => setQuestions(data.data))
+    console.log('verificando se usuario autenticado para buscar questions da tela de criacao de carta')
+    if(isAuthenticated()){
+      getAllQuestions().then((data) => setQuestions(data.data))
+    }
   }, [])
 
   useEffect(() => {
@@ -94,7 +100,7 @@ export const CardCreateForm: React.FC<any> = () => {
     console.log('gerando texto')
     if (isAuthenticated()) {
       console.log('pegando userId:'+ authUser?.userId)
-      await CardService.generateCardText(
+      await generateCardText(
         {
           "userId": authUser?.userId!,
           "questions": questionsRequest
@@ -113,7 +119,7 @@ export const CardCreateForm: React.FC<any> = () => {
     console.log(cardHashResponse)
     console.log("criando image")
     console.log(imageAnswer)
-    await CardService.generateCardImage(
+    await generateCardImage(
       {
         "cardHash": cardHashResponse,
         "prompt": imageAnswer
@@ -129,7 +135,7 @@ export const CardCreateForm: React.FC<any> = () => {
 
   const handleUpdateCardName = async () => {
     console.log("settando card name: " + nameAnswer)
-    await CardService.updateCardName(
+    await updateCardName(
       {
         "cardHash": cardHashResponse,
         "name": nameAnswer

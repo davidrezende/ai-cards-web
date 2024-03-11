@@ -14,8 +14,9 @@ export const MenuProfile: React.FC<any> = () => {
       <Card className="flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100 bg-opacity-80 ">
         <Card.Title className='font-bold justify-center mt-4'>Opa, CALABRESO!</Card.Title>
       <Card.Body>
-        <Form className="mt-1">
-          <Button className='btn btn-active font-bold text-xl font-mono normal-case bg-warning' dataTheme='light' onClick={() => navigate("/card/create")}>+ Nova Carta</Button>
+        <Form><Button className='mt-2 btn btn-active font-bold text-xl font-mono normal-case bg-warning' dataTheme='light' onClick={() => navigate("/profile")}>Perfil</Button>
+          <Button className='mt-1 btn btn-active font-bold text-xl font-mono normal-case bg-warning' dataTheme='light' onClick={() => navigate("/card/create")}>+ Nova Carta</Button>
+          <Button className='mt-1 btn btn-disabled font-bold text-xl font-mono normal-case bg-gray-500' dataTheme='light' onClick={() => navigate("/duel")}>Duelar</Button>
         </Form>
       </Card.Body>
     </Card>

@@ -1,7 +1,11 @@
-import { QuestionAPI } from "../providers/ClientIntegradorAPI"
+import { useQuestionAPI } from "../providers/ClientIntegradorAPI"
 
-const getAllQuestions = QuestionAPI.get('/all')
+const useQuestionService = () => {
+    const QuestionAPI = useQuestionAPI();
+    const getAllQuestions = () => QuestionAPI.get('/all')
 
-export const QuestionService = {
-    getAllQuestions
+    return {
+        getAllQuestions
+    }
 }
+export default useQuestionService;
