@@ -7,6 +7,7 @@ import { NavbarApp } from '../components/NavbarApp';
 import useAuthUser from 'react-auth-kit/hooks/useAuthUser'
 import useIsAuthenticated from 'react-auth-kit/hooks/useIsAuthenticated'
 import IUserData from '../shared/types/ResponseUserData';
+import useUserService from '../services/ServiceUser';
 
 type DialogProps = {
     isOpen: boolean;
@@ -75,11 +76,13 @@ export default Dialog;
 
 export const InventoryScreen: React.FC<any> = () => {
     const authUser = useAuthUser<IUserData>()
+    const [userData, setUserData] = useState<IUserData>()
     const isAuthenticated = useIsAuthenticated()
     const [cards, setCards] = useState<Card[]>()
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [cardPopup, setCardPopup] = useState<Card>()
     const { getAllCardsByUser } = useCardService();
+    const { getAllDataFromUser } = useUserService();
 
     const handleCloseDialog = () => {
         setIsDialogOpen(false);
@@ -92,6 +95,14 @@ export const InventoryScreen: React.FC<any> = () => {
     useEffect(() => {
         console.log('verificando se usuario autenticado')
         if (isAuthenticated()) {
+            console.log('carregando perfil do usuario')
+            getAllDataFromUser(authUser!.userId)
+                .then((response) => {
+                    setUserData(response.data)
+                    console.log(response.data)
+                }).catch((error) => {
+                    console.log(error)
+                })
             console.log('listando cartas do usuario')
             getAllCardsByUser(authUser!.userId)
                 .then((response) => {
@@ -110,7 +121,7 @@ export const InventoryScreen: React.FC<any> = () => {
                 <NavbarApp />
                 <div className="flex flex-col lg:flex-row p-5 h-full">
                     <div className="p-5 lg:w-1/6 md:w-full flex h-full card bg-base-300 rounded-box justify-center items-center">
-                        <MenuProfile />
+                        {userData != undefined ? <MenuProfile userData={userData} /> : ''}
                     </div>
                     <div className="divider lg:divider-horizontal">
                     </div>

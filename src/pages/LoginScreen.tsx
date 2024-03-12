@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import useSignIn from "react-auth-kit/hooks/useSignIn"
 import { useNavigate } from 'react-router-dom'
-import { UserService } from "../services/ServiceUser"
+import useAuthService from "../services/ServiceAuth"
 import useIsAuthenticated from 'react-auth-kit/hooks/useIsAuthenticated'
 
 export const LoginScreen: React.FC<any> = () => {
@@ -11,6 +11,8 @@ export const LoginScreen: React.FC<any> = () => {
   const signIn = useSignIn()
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
+  const { userLogin } = useAuthService(); 
+
 
   useEffect(() => {
     console.log('verificando se usuario logado')
@@ -27,7 +29,7 @@ export const LoginScreen: React.FC<any> = () => {
     console.log("Values: ", email);
     console.log("Values: ", password);
 
-    UserService.userLogin(
+    userLogin(
       {
         "email": email,
         "password": password
