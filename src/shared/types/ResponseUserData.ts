@@ -1,3 +1,5 @@
 export default interface IUserData{
-    userId: string
+    userId: string;
+    name: string;
+    email: string;
 }

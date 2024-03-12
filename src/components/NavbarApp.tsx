@@ -17,7 +17,7 @@ export const NavbarApp: React.FC<any> = () => {
     <div className="flex w-full component-preview p-4 items-center justify-center gap-2 font-sans">
       <Navbar className="bg-base-100 bg-opacity-40 rounded-lg">
         <Navbar.Start>
-          <a className="btn btn-ghost normal-case text-xl">Eufor-IA</a>
+          <a className="btn btn-ghost normal-case text-xl" onClick={()=> navigate("/")}>Eufor-IA</a>
         </Navbar.Start>
         <Navbar.Center className="hidden lg:flex">
         </Navbar.Center>

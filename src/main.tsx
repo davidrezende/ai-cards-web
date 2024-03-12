@@ -10,6 +10,7 @@ import { RegisterScreen } from './pages/RegisterScreen.tsx'
 import AuthProvider from "react-auth-kit";
 import createStore from 'react-auth-kit/createStore';
 import RequireAuth from '@auth-kit/react-router/RequireAuth'
+import { ProfileScreen } from './pages/ProfileScreen.tsx'
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,12 @@ const router = createBrowserRouter([
     path: "/card/create",
     element: <RequireAuth fallbackPath='/login'>
       <CreateCardScreen />
+    </RequireAuth>,
+  },
+  {
+    path: "/profile",
+    element: <RequireAuth fallbackPath='/login'>
+      <ProfileScreen />
     </RequireAuth>,
   },
   {

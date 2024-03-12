@@ -1,11 +1,17 @@
-import { UserAPI } from "../providers/ClientIntegradorAPI"
+import { useAuthAPI, useUserAPI } from "../providers/ClientIntegradorAPI"
 import IRequestLoginUser from "../shared/types/RequestLoginUser"
+import IUserModifyData from "../shared/types/RequestModifyUserData";
 import IRequestRegisterUser from "../shared/types/RequestRegisterUser"
 
-const userLogin = (requestLogin: IRequestLoginUser) => UserAPI.post('/login', requestLogin)
-const userRegister = (requestRegister: IRequestRegisterUser) => UserAPI.post('/register', requestRegister)
 
-export const UserService = {
-    userLogin,
-    userRegister
+const useUserService = () => {
+    const UserAPI = useUserAPI();
+    const getAllDataFromUser = (userId: string) => UserAPI.get('/'+userId)
+    const updateDataFromUser = (request: IUserModifyData) => UserAPI.put('',request)
+
+    return {
+        getAllDataFromUser,
+        updateDataFromUser
+    }
 }
+export default useUserService;
