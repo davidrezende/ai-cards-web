@@ -6,67 +6,54 @@ import useIsAuthenticated from 'react-auth-kit/hooks/useIsAuthenticated'
 import Alerts from "../components/Alerts"
 
 export const RegisterScreen: React.FC<any> = () => {
-
-  const isAuthenticated = useIsAuthenticated()
-  const navigate = useNavigate()
-  const [name, setName] = useState<string>('')
-  const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
-  const [visible, setVisible] = useState(false)
-  const [alert, setAlert] = useState("")
-  const { userRegister } = useAuthService(); 
-
+  const isAuthenticated = useIsAuthenticated();
+  const navigate = useNavigate();
+  const [name, setName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [visible, setVisible] = useState(false);
+  const [alert, setAlert] = useState('');
+  const [error, setError] = useState<string>('');
+  const { userRegister } = useAuthService();
 
   useEffect(() => {
-    console.log('verificando se usuario logado')
     if (isAuthenticated()) {
-      navigate('/cards')
+      navigate('/cards');
     }
-  }, [])
+  }, []);
 
-  const onSubmit = async () => {
-    console.log("Values: ", name);
-    console.log("Values: ", email);
-    console.log("Values: ", password);
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
-    await userRegister(
-      {
-        "name": name,
-        "email": email,
-        "password": password
-      }
-    ).then(() => {
-      alertContext("success")
-    }).catch((err) => {
-      alertContext("error")
-      console.log(err)
-    })
-  }
-
-  // nao reload no form
-  const form = document.getElementById('myForm')
-  form?.addEventListener('submit', e => {
-    e.preventDefault()
-    console.log()
-  })
+    try {
+      await userRegister({
+        name,
+        email,
+        password
+      });
+      alertContext('success');
+    } catch (error) {
+      setError("Email já existente.")
+      alertContext('error');
+      console.log(error);
+    }
+  };
 
   function alertContext(type: string) {
-    setVisible(true)
-    setAlert(type)
+    setVisible(true);
+    setAlert(type);
   }
 
   return (
-    <div className="flex flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-white absolute bg-opacity-95">
+    <div className="max-sm:w-full max-sm:h-full 2xl:h-full flex flex-col justify-center px-6 py-12 lg:px-8 bg-white absolute bg-opacity-95">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
           Cadastro Eufor-IA
         </h2>
       </div>
-      {visible &&
-        (Alerts(alert))
-      }
+      {visible && Alerts(alert, error)}
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form id={"myForm"} className="space-y-6" onSubmit={onSubmit}>
+        <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
               Nome
@@ -78,6 +65,8 @@ export const RegisterScreen: React.FC<any> = () => {
                 type="name"
                 autoComplete="name"
                 required
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 className="bg-white indent-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
@@ -94,6 +83,8 @@ export const RegisterScreen: React.FC<any> = () => {
                 type="email"
                 autoComplete="email"
                 required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="bg-white indent-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
@@ -112,24 +103,8 @@ export const RegisterScreen: React.FC<any> = () => {
                 type="password"
                 autoComplete="current-password"
                 required
-                className="bg-white indent-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
-            </div>
-          </div>
-
-          <div>
-            <div className="flex items-center justify-between">
-              <label htmlFor="confirmPassword" className="block text-sm font-medium leading-6 text-gray-900">
-                Confirme sua senha
-              </label>
-            </div>
-            <div className="mt-2">
-              <input
-                id="confirmPassword"
-                name="confirmPassword"
-                type="password"
-                autoComplete="confirm-password"
-                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className="bg-white indent-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
@@ -145,7 +120,7 @@ export const RegisterScreen: React.FC<any> = () => {
           </div>
         </form>
 
-        <p className="mt-10 text-center text-sm text-gray-500">
+        <p className="px-14 mt-10 text-center text-sm text-gray-500">
           Já tem cadastro?{' '}
           <a onClick={() => navigate("/login")} className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500 cursor-pointer">
             Sign-In
@@ -153,5 +128,5 @@ export const RegisterScreen: React.FC<any> = () => {
         </p>
       </div>
     </div>
-  )
-}
+  );
+};
