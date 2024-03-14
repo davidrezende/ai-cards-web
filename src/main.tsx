@@ -11,6 +11,7 @@ import AuthProvider from "react-auth-kit";
 import createStore from 'react-auth-kit/createStore';
 import RequireAuth from '@auth-kit/react-router/RequireAuth'
 import { ProfileScreen } from './pages/ProfileScreen.tsx'
+import { ShareScreen } from './pages/ShareScreen.tsx'
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <LoginScreen />,
+  },
+  {
+    path: "/share/:cardHash",
+    element: <ShareScreen />
   },
   {
     path: "/register",
