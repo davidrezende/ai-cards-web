@@ -8,6 +8,7 @@ import useAuthUser from 'react-auth-kit/hooks/useAuthUser'
 import useIsAuthenticated from 'react-auth-kit/hooks/useIsAuthenticated'
 import IUserData from '../shared/types/ResponseUserData';
 import useUserService from '../services/ServiceUser';
+import { FooterCopyright } from '../components/FooterCopyright';
 
 type DialogProps = {
     isOpen: boolean;
@@ -22,7 +23,7 @@ const Dialog: React.FC<DialogProps> = ({ isOpen, onClose, cardPopup }) => {
 
     return (
         <div
-            className="fixed w-screen h-screen bg-base-100 bg-opacity-90 flex items-center justify-center z-10 "
+            className="fixed w-screen h-screen bg-base-100 bg-opacity-90 flex items-center justify-center z-10  "
             onClick={onClose}>
             {
                 cardPopup?.status == "CREATED" ?
@@ -30,10 +31,10 @@ const Dialog: React.FC<DialogProps> = ({ isOpen, onClose, cardPopup }) => {
                     <div className="relative h-full md:w-11/12 md:h-5/6 lg:w-7/12 lg:h-5/6 bg-base-300 rounded-lg shadow overflow-auto">
                         <div className='flex flex-col justify-center items-center p-6 '>
                             <>
-                                <div className='card-frame-background z-50 rounded-box'>
-                                    <div className=' flex lg:flex-col justify-center items-center h-full w-full p-5'>
+                                <div className='card-frame-background z-50 rounded-box '>
+                                    <div className=' bg-transparent flex lg:flex-col justify-center items-center h-full w-full p-5'>
 
-                                        <div className='flex-col p-5 w-fit bg-base-100 rounded-box'>
+                                        <div className=' bg-transparent flex-col p-5 w-fit bg-base-100 rounded-box '>
 
                                             <div className='text-center pt-3'>
                                                 <h2 className="text-xl font-bold">{cardPopup?.name}</h2>
@@ -54,7 +55,7 @@ const Dialog: React.FC<DialogProps> = ({ isOpen, onClose, cardPopup }) => {
                                     </div>
 
                                 </div>
-                                <br/>
+                                <br />
                                 <ul className="grid grid-rows-2 grid-flow-col w-full gap-x-2 gap-y-1 text-sm text-center">
                                     <li><b>COLEÇÃO: {cardPopup?.collectionSeries}</b></li>
                                 </ul>
@@ -133,9 +134,12 @@ export const InventoryScreen: React.FC<any> = () => {
                     </div>
                     <div className="divider lg:divider-horizontal">
                     </div>
-                    <div className="p-5 w-full sm:p-10 md:p-5 card bg-base-200 rounded-box overflow-auto h-full">
-
-                        <p className='pb-5 text-start font-bold text-xl subpixel-antialiased'> Deck ({!!cards ? cards.length : '0'})</p>
+                    <div className="p-5 w-full sm:p-10 md:p-5 card bg-base-200 rounded-box overflow-auto h-full relative">
+                        <div className='flex w-full'>
+                            <div className='lg:fixed top-20'>
+                                <p className='pb-5 text-start font-bold text-xl subpixel-antialiased'> Deck ({!!cards ? cards.length : '0'})</p>
+                            </div>
+                        </div>
                         <div className="lg:max-h-px grid grid-cols-2 gap-5 md:gap-3 lg:gap-6 lg:grid-cols-6 md:grid-cols-4 sm:p-5">
                             {
                                 !!cards ? cards.map((card) => (
@@ -147,6 +151,9 @@ export const InventoryScreen: React.FC<any> = () => {
                             }
                         </div>
                     </div>
+                </div>
+                <div className='w-full  bottom-0'>
+                    <FooterCopyright />
                 </div>
             </div></>
     )

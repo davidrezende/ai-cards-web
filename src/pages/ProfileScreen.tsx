@@ -107,7 +107,7 @@ export const ProfileScreen: React.FC<any> = () => {
         <><div className='w-screen'><NavbarApp /></div><div className='h-screen w-screen lg:flex lg:flex-col lg:overflow-auto'>
             <div className='absolute h-full w-full justify-center flex flex-col items-center'>
                 <div className="avatar online placeholder items-center ">
-                    <div className="w-72 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                    <div className="w-36 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                         <span className="text-xl ">{user?.name.charAt(0).concat(user.name.charAt(user.name.length - 1))}</span>
                     </div>
                 </div>

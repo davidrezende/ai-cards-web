@@ -30,7 +30,7 @@ export const MenuProfile: React.FC<ListProps> = ({ userData }) => {
   const randomElement = getRandomElement(predefinedList);
   return (
     <Card className="flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100 bg-opacity-80 ">
-      <Card.Title className='w-full justify-center mt-4 text-3xl'>{randomElement},<br/><p className='font-bold'>{userData!.name}</p></Card.Title>
+      <Card.Title className='w-full justify-center mt-4 text-lg md:text-base lg:text-4xl xl:text-xl whitespace-nowrap'>{randomElement},<br/><p className='font-bold'>{userData!.name}</p></Card.Title>
       <Card.Body>
         <Form><Button className='mt-2 btn btn-active font-bold text-xl font-mono normal-case bg-warning' dataTheme='light' onClick={() => navigate("/profile")}>Perfil</Button>
           <Button className='mt-5 btn btn-active font-bold text-xl font-mono normal-case bg-warning' dataTheme='light' onClick={() => navigate("/card/create")}>+ Nova Carta</Button>

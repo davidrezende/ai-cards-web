@@ -4,13 +4,16 @@ import { HomePrimaryBoxText } from '../components/home/HomePrimaryBoxText';
 import { HomeBoxButtons } from '../components/home/HomeBoxButtons';
 import { HomeSecondaryBoxText } from '../components/home/HomeSecondaryBoxText';
 import { FooterCopyright } from '../components/FooterCopyright';
+import { NavbarApp } from '../components/NavbarApp';
 
 export const HomeScreen: React.FC<any> = () => {
 
   return (
     <>
-      <div className='w-screen absolute w-full justify-center flex flex-col items-center'>
-          <div className='flex min-h-screen'>
+      <div className='w-screen h-screen flex flex-col relative'>
+        <NavbarApp />
+        <div className='w-screen  justify-center flex flex-col items-center'>
+          <div className='flex-grow'>
             <Hero>
               <Hero.Content className="flex-col lg:flex-row ">
                 <HomePrimaryBoxText />
@@ -19,10 +22,13 @@ export const HomeScreen: React.FC<any> = () => {
               </Hero.Content>
             </Hero>
           </div>
-        <div className=''>
-          <FooterCopyright />
+          <div className='w-full lg:fixed bottom-0'>
+            <FooterCopyright />
+          </div>
         </div>
+        
       </div>
+      
     </>
   )
 }
