@@ -42,14 +42,22 @@ const Dialog: React.FC<DialogProps> = ({ isOpen, onClose, cardPopup }) => {
                                                 <img className='w-52 rounded-box' src={!!!cardPopup || !!!cardPopup.image || !!!cardPopup.image.image ? 'cardDefault' : 'data:image/jpeg;base64,' + cardPopup.image.image} alt={cardPopup?.name} />
                                             </div>
                                             <ul className="grid grid-rows-2 grid-flow-col w-full gap-x-2 gap-y-1 text-center text-sm py-4">
-                                                <li>FORÇA: {cardPopup?.attributes.FORCA}</li>
-                                                <li>DESTREZA: {cardPopup?.attributes.DESTREZA}</li>
-                                                <li>VITALIDADE: {cardPopup?.attributes.VITALIDADE}</li>
-                                                <li>INTELIGENCIA: {cardPopup?.attributes.INTELIGENCIA}</li>
+                                                <li>FORÇA: {cardPopup?.attributes.STRENGHT || cardPopup?.attributes.FORCA}</li>
+                                                <li>DESTREZA: {cardPopup?.attributes.DEXTERITY || cardPopup?.attributes.DESTREZA}</li>
+                                                <li>VITALIDADE: {cardPopup?.attributes.VITALITY || cardPopup?.attributes.VITALIDADE}</li>
+                                                <li>INTELIGENCIA: {cardPopup?.attributes.INTELLIGENCE || cardPopup?.attributes.INTELIGENCIA}</li>
+                                            </ul>
+                                            <ul className="grid grid-rows-2 grid-flow-col w-full gap-x-2 pt-2 text-sm text-center">
+                                                <li><b>{cardPopup?.rarity}</b></li>
                                             </ul>
                                         </div>
                                     </div>
+
                                 </div>
+                                <br/>
+                                <ul className="grid grid-rows-2 grid-flow-col w-full gap-x-2 gap-y-1 text-sm text-center">
+                                    <li><b>COLEÇÃO: {cardPopup?.collectionSeries}</b></li>
+                                </ul>
                                 <div className='lg:w-4/5 py-5'>
                                     <p className="max-w-max">{cardPopup?.description}</p>
                                 </div>

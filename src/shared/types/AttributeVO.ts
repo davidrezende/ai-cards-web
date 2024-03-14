@@ -3,4 +3,8 @@ export default interface Attribute{
     DESTREZA: number
     FORCA: number
     INTELIGENCIA: number
+    VITALITY: number
+    DEXTERITY: number
+    STRENGHT: number
+    INTELLIGENCE: number
 }

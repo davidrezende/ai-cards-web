@@ -172,7 +172,7 @@ export const CardCreateForm: React.FC<any> = () => {
       {showLoading &&
         <div className='inline-grid lg:grid-flow-col w-full lg:w-1/2 md:w-2/3 max-w-4xl text-white font-bold'>
           <ul className="steps pb-9 w-full">
-            <li className="step step-secondary">Características</li>
+            <li className="step step-secondary">Personalidade</li>
             <li className={`step ${steps >= 2 ? "step-secondary" : null}`}>Cenário</li>
             <li className={`step ${steps >= 3 ? "step-secondary" : null}`}>Trama</li>
           </ul>
