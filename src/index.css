@@ -19,6 +19,7 @@ body,
     display: flex;
     height: 100vh;
     margin: auto;
+    overflow-x: hidden;
 }
 
 ::-webkit-scrollbar-track {

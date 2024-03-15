@@ -54,11 +54,11 @@ const store = createStore({
 });
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
-    <div className='h-screen w-screen relative justify-center flex flex-col items-center flex-row'>
-      <AuthProvider store={store}>
-        <RouterProvider router={router} />
-      </AuthProvider>
-    </div>
-  </React.StrictMode>,
+  <div>
+    <React.StrictMode>
+        <AuthProvider store={store}>
+          <RouterProvider router={router} />
+        </AuthProvider>
+    </React.StrictMode>
+  </div>
 )

@@ -136,7 +136,7 @@ export const InventoryScreen: React.FC<any> = () => {
                     </div>
                     <div className="p-5 w-full sm:p-10 md:p-5 card bg-base-200 rounded-box overflow-auto h-full relative">
                         <div className='flex w-full'>
-                            <div className='lg:fixed top-20'>
+                            <div className='top-20'>
                                 <p className='pb-5 text-start font-bold text-xl subpixel-antialiased'> Deck ({!!cards ? cards.length : '0'})</p>
                             </div>
                         </div>
@@ -152,9 +152,9 @@ export const InventoryScreen: React.FC<any> = () => {
                         </div>
                     </div>
                 </div>
-                <div className='w-full  bottom-0'>
-                    <FooterCopyright />
-                </div>
+            </div>
+            <div className='w-screen bottom-0 bg-base-100'>
+                <FooterCopyright />
             </div></>
     )
 }

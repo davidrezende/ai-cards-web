@@ -10,7 +10,7 @@ export const FooterCopyright: React.FC<any> = () => {
       currentPathname
     }
   }, [])
-
+  if (currentPathname === "/login") return null
   return (
     <footer className="bg-white rounded-lg dark:bg-base-100 m-4">
       {!(currentPathname == '/cards' || currentPathname == '/card/create') &&
