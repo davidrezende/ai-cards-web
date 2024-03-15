@@ -28,7 +28,7 @@ const Dialog: React.FC<DialogProps> = ({ isOpen, onClose, cardPopup }) => {
             {
                 cardPopup?.status == "CREATED" ?
 
-                    <div className="relative h-full md:w-11/12 md:h-5/6 lg:w-7/12 lg:h-5/6 bg-base-300 rounded-lg shadow overflow-auto">
+                    <div className="h-full md:w-11/12 md:h-5/6 lg:w-7/12 lg:h-5/6 bg-base-300 rounded-lg shadow overflow-auto">
                         <div className='flex flex-col justify-center items-center p-6 '>
                             <>
                                 <div className='card-frame-background z-50 rounded-box '>
@@ -126,7 +126,7 @@ export const InventoryScreen: React.FC<any> = () => {
     return (
         <>
             <Dialog isOpen={isDialogOpen} onClose={handleCloseDialog} cardPopup={cardPopup} />
-            <div className='h-screen w-screen lg:flex lg:flex-col lg:overflow-auto'>
+            <div className='w-screen lg:h-screen max-sm:h-lvh lg:flex lg:flex-col lg:overflow-auto'>
                 <NavbarApp />
                 <div className="flex flex-col lg:flex-row p-5 h-full">
                     <div className="p-5 lg:w-1/6 md:w-full flex h-full card bg-base-300 rounded-box justify-center items-center">
@@ -134,13 +134,13 @@ export const InventoryScreen: React.FC<any> = () => {
                     </div>
                     <div className="divider lg:divider-horizontal">
                     </div>
-                    <div className="p-5 w-full sm:p-10 md:p-5 card bg-base-200 rounded-box overflow-auto h-full relative">
+                    <div className="p-5 w-full sm:p-10 md:p-5 card bg-base-200 rounded-box overflow-auto h-full">
                         <div className='flex w-full'>
                             <div className='top-20'>
                                 <p className='pb-5 text-start font-bold text-xl subpixel-antialiased'> Deck ({!!cards ? cards.length : '0'})</p>
                             </div>
                         </div>
-                        <div className="lg:max-h-px grid grid-cols-2 gap-5 md:gap-3 lg:gap-6 lg:grid-cols-6 md:grid-cols-4 sm:p-5">
+                        <div className="grid grid-cols-2 gap-5 md:gap-3 lg:gap-6 lg:grid-cols-6 md:grid-cols-4 sm:p-5 max-sm:h-screen overflow-auto">
                             {
                                 !!cards ? cards.map((card) => (
                                     <CardBox
@@ -153,7 +153,7 @@ export const InventoryScreen: React.FC<any> = () => {
                     </div>
                 </div>
             </div>
-            <div className='w-screen bottom-0 bg-base-100'>
+            <div className='w-screen bottom-0 bg-base-100 relative'>
                 <FooterCopyright />
             </div></>
     )

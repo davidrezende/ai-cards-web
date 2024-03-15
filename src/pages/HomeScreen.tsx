@@ -10,9 +10,9 @@ export const HomeScreen: React.FC<any> = () => {
 
   return (
     <>
-      <div className='w-screen h-screen flex flex-col relative'>
+      <div className='flex flex-col'>
         <NavbarApp />
-        <div className='w-screen  justify-center flex flex-col items-center'>
+        <div className='w-screen lg:h-screen max-sm:h-lvh justify-center flex flex-col items-center'>
           <div className='flex-grow'>
             <Hero>
               <Hero.Content className="flex-col lg:flex-row ">
@@ -24,7 +24,7 @@ export const HomeScreen: React.FC<any> = () => {
           </div>
         </div>
       </div>
-      <div className='w-screen bottom-0 bg-base-100'>
+      <div className='w-screen bottom-0 bg-base-100 relative'>
         <FooterCopyright />
       </div>
     </>

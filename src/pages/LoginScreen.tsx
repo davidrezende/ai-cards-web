@@ -111,7 +111,7 @@ export const LoginScreen: React.FC<any> = () => {
 
   return (
     <>
-      <div className="relative h-screen w-screen max-sm:w-full max-sm:h-full 2xl:h-full flex flex-1 flex-col justify-center px-6 py-6 lg:px-9 bg-white absolute bg-opacity-95">
+      <div className="relative h-screen w-screen flex flex-1 flex-col justify-center px-6 py-6 lg:px-9 bg-white absolute bg-opacity-95">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           {visible && Alerts(alert, error)}
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-500">
