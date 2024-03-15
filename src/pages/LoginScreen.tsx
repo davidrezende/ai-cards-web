@@ -5,7 +5,6 @@ import useAuthService from "../services/ServiceAuth"
 import useIsAuthenticated from 'react-auth-kit/hooks/useIsAuthenticated'
 import Alerts from "../components/Alerts"
 import Loading from "../components/QuestionLoading"
-import { FooterCopyright } from "../components/FooterCopyright"
 import { NavbarApp } from "../components/NavbarApp"
 
 export const LoginScreen: React.FC<any> = () => {
@@ -86,6 +85,7 @@ export const LoginScreen: React.FC<any> = () => {
             userId: sub
           }
         })
+        setVisible(false)
         setTimeout(() => {
           getRandomElement(greetingsPhrases);
         }, 2000);
@@ -110,15 +110,14 @@ export const LoginScreen: React.FC<any> = () => {
   }
 
   return (
-    <><div className='bg-base-100 h-screen w-screen lg:flex lg:flex-col lg:overflow-auto relative'>
-      <div className="w-screen h-screen max-sm:w-full max-sm:h-full 2xl:h-full flex flex-1 flex-col justify-center px-6 py-6 lg:px-9 bg-white absolute bg-opacity-95">
+    <>
+      <div className="relative h-screen w-screen max-sm:w-full max-sm:h-full 2xl:h-full flex flex-1 flex-col justify-center px-6 py-6 lg:px-9 bg-white absolute bg-opacity-95">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-            Login Eufor-IA
+          {visible && Alerts(alert, error)}
+          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-500">
+            Login <a href="/" className="text-indigo-600 ">Eufor-IA </a>
           </h2>
         </div>
-        {visible && Alerts(alert, error)}
-
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           {loading && <><Loading /><p className="bold mt-10 text-center text-sm text-gray-500 animate-pulse">
             {phraseLogin}
@@ -184,14 +183,6 @@ export const LoginScreen: React.FC<any> = () => {
               </a>
             </p>}
         </div>
-
-
-
-      </div>
-
-    </div>
-      <div className='w-full bottom-0 bg-base-100 lg:fixed md:fixed  '>
-        <FooterCopyright />
       </div>
     </>
   )

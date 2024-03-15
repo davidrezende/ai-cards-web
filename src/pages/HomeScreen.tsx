@@ -22,13 +22,11 @@ export const HomeScreen: React.FC<any> = () => {
               </Hero.Content>
             </Hero>
           </div>
-          <div className='w-full lg:fixed bottom-0'>
-            <FooterCopyright />
-          </div>
         </div>
-        
       </div>
-      
+      <div className='w-screen bottom-0 bg-base-100'>
+        <FooterCopyright />
+      </div>
     </>
   )
 }

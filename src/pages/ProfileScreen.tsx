@@ -7,6 +7,7 @@ import useUserService from '../services/ServiceUser';
 import IUserModifyData from '../shared/types/RequestModifyUserData';
 import usePasswordService from '../services/PasswordService';
 import { NavbarApp } from '../components/NavbarApp';
+import { FooterCopyright } from '../components/FooterCopyright';
 
 export const ProfileScreen: React.FC<any> = () => {
     const authUser = useAuthUser<IUserData>()
@@ -105,7 +106,7 @@ export const ProfileScreen: React.FC<any> = () => {
 
     return (
         <><div className='w-screen'><NavbarApp /></div><div className='h-screen w-screen lg:flex lg:flex-col lg:overflow-auto'>
-            <div className='absolute h-full w-full justify-center flex flex-col items-center'>
+            <div className='h-full w-full justify-center flex flex-col items-center'>
                 <div className="avatar online placeholder items-center ">
                     <div className="w-36 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                         <span className="text-xl ">{user?.name.charAt(0).concat(user.name.charAt(user.name.length - 1))}</span>
@@ -182,9 +183,12 @@ export const ProfileScreen: React.FC<any> = () => {
                             className='btn w-full text-base text-white bg-red-500 btn-active font-bold lg:text-xl font-mono normal-case'
                         >Cancelar</button>}
                     </div>
-
                 </div>
             </div>
-        </div></>
+        </div>
+            <div className='w-screen bottom-0 bg-base-100'>
+                <FooterCopyright />
+            </div></>
+
     );
 }

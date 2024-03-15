@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react"
-import useSignIn from "react-auth-kit/hooks/useSignIn"
 import { useNavigate } from 'react-router-dom'
 import useAuthService from "../services/ServiceAuth"
 import useIsAuthenticated from 'react-auth-kit/hooks/useIsAuthenticated'
@@ -45,13 +44,13 @@ export const RegisterScreen: React.FC<any> = () => {
   }
 
   return (
-    <div className="max-sm:w-full max-sm:h-full 2xl:h-full flex flex-col justify-center px-6 py-12 lg:px-8 bg-white absolute bg-opacity-95">
+    <div className="relative h-screen w-screen max-sm:w-full max-sm:h-full 2xl:h-full flex flex-col justify-center px-6 py-12 lg:px-8 bg-white absolute bg-opacity-95">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-          Cadastro Eufor-IA
+      {visible && Alerts(alert, error)}
+        <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-500"> Cadastro 
+          <a href="/" className="text-indigo-600 "> Eufor-IA</a>
         </h2>
       </div>
-      {visible && Alerts(alert, error)}
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
