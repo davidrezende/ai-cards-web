@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
+import useIsAuthenticated from 'react-auth-kit/hooks/useIsAuthenticated';
 import { Footer } from 'react-daisyui';
 
 export const FooterCopyright: React.FC<any> = () => {
 
   const currentPathname = window.location.pathname;
+  const isAuthenticated = useIsAuthenticated()
 
   useEffect(() => {
     return () => {
@@ -22,9 +24,12 @@ export const FooterCopyright: React.FC<any> = () => {
               <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"><i>Eufor</i><b>-IA</b></span>
             </a>
             <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
-              <li>
-                <a href="/register" className="hover:underline me-4 md:me-6">Cadastre-se</a>
-              </li>
+
+              {!isAuthenticated() &&
+                <li>
+                  <a href="/register" className="hover:underline me-4 md:me-6">Cadastre-se</a>
+                </li>
+              }
               <li>
                 <a href="/about" className="hover:underline me-4 md:me-6">Sobre</a>
               </li>

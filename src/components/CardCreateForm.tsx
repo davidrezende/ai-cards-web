@@ -35,8 +35,10 @@ export const CardCreateForm: React.FC<any> = () => {
 
   useEffect(() => {
     console.log('verificando se usuario autenticado para buscar questions da tela de criacao de carta')
-    if(isAuthenticated()){
-      getAllQuestions().then((data) => setQuestions(data.data))
+    if (isAuthenticated()) {
+      getAllQuestions().then((data) => {
+        setQuestions(data.data);
+      })
     }
   }, [])
 
@@ -99,7 +101,7 @@ export const CardCreateForm: React.FC<any> = () => {
   const handleCreateCardText = async () => {
     console.log('gerando texto')
     if (isAuthenticated()) {
-      console.log('pegando userId:'+ authUser?.userId)
+      console.log('pegando userId:' + authUser?.userId)
       await generateCardText(
         {
           "userId": authUser?.userId!,
