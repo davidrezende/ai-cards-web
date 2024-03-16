@@ -1,3 +1,4 @@
+import { Card } from "react-daisyui"
 import { useCardAPI } from "../providers/ClientIntegradorAPI"
 import IRequestCreateCardText from "../shared/types/RequestCreateCardText"
 import IRequestCreateImage from "../shared/types/RequestCreateImage"
@@ -9,12 +10,14 @@ const useCardService = () => {
     const generateCardImage = (requestImage: IRequestCreateImage) => CardAPI.patch('/image/prompt', requestImage)
     const updateCardName = (requestUpdateName: IRequestUpdateCardName) => CardAPI.patch('/name', requestUpdateName)
     const getAllCardsByUser = (userId: string) => CardAPI.get('/user/' + userId)
+    const getCardByCardHash = (cardHash: string) => CardAPI.get('/' + cardHash)
 
     return {
         generateCardText,
         generateCardImage,
         updateCardName,
-        getAllCardsByUser
+        getAllCardsByUser,
+        getCardByCardHash
     }
 }
 export default useCardService;

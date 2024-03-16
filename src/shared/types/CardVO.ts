@@ -8,6 +8,8 @@ export default interface Card {
     attributes: Attribute
     status: string
     rarity: string
+    userId: string
     image: ImageVO
     collectionSeries: string
-  }
+    datCreation: string 
+  } 
