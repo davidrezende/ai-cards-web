@@ -35,10 +35,8 @@ export const CardCreateForm: React.FC<any> = () => {
 
   useEffect(() => {
     console.log('verificando se usuario autenticado para buscar questions da tela de criacao de carta')
-    if (isAuthenticated()) {
-      getAllQuestions().then((data) => {
-        setQuestions(data.data);
-      })
+    if(isAuthenticated()){
+      getAllQuestions().then((data) => setQuestions(data.data))
     }
   }, [])
 
@@ -55,7 +53,7 @@ export const CardCreateForm: React.FC<any> = () => {
     timeLoading()
     // Está em uma pergunta nova? 
     if (qt < 3 && questionsRequest.length == qt) {
-      setQuestionsRequest(current => [...current, { questionId: questions[qt].questionId, answer: answer }])
+      setQuestionsRequest(current => [...current, { questionId: questions[qt].questionId, answer: answer, numOrder: questions[qt].numOrder, }])
       setAnswer('')
       // Está em uma pergunta repetida?
     } else if (qt < 3 && questionsRequest.length != qt) {
@@ -78,7 +76,7 @@ export const CardCreateForm: React.FC<any> = () => {
     if (qt > 0) {
       timeLoading()
       if (questionsRequest[qt] == undefined) {
-        setQuestionsRequest(current => [...current, { questionId: questions[qt].questionId, answer: answer }])
+        setQuestionsRequest(current => [...current, { questionId: questions[qt].questionId, answer: answer, numOrder: questions[qt].numOrder}])
       } else {
         setQuestionsRequest(updateQuestions())
       }
@@ -101,7 +99,7 @@ export const CardCreateForm: React.FC<any> = () => {
   const handleCreateCardText = async () => {
     console.log('gerando texto')
     if (isAuthenticated()) {
-      console.log('pegando userId:' + authUser?.userId)
+      console.log('pegando userId:'+ authUser?.userId)
       await generateCardText(
         {
           "userId": authUser?.userId!,
