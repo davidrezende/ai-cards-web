@@ -1,5 +1,5 @@
 import React from 'react';
-import cardDefault from '../assets/magonegro.png'
+import cardDefault from '../assets/nobg.png'
 import Card from '../shared/types/CardVO';
 
 type ListProps = {
