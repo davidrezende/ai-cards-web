@@ -201,7 +201,7 @@ export const InventoryScreen: React.FC<any> = () => {
                                 <p className='pb-5 text-start font-bold text-xl subpixel-antialiased'> Deck ({!!cards ? cards.length : '0'})</p>
                             </div>
                         </div>
-                        <div className="grid grid-cols-2 gap-5 md:gap-3 lg:gap-6 lg:grid-cols-6 md:grid-cols-4 sm:p-5 max-sm:h-screen overflow-auto">
+                        <div className="grid grid-cols-2 gap-5 md:gap-3 lg:gap-6 lg:grid-cols-6 md:grid-cols-4 sm:p-5 overflow-auto">
                             {
                                 
                                 !!cards ? cards.length > 0 ? cards.map((card) => (
