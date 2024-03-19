@@ -23,10 +23,14 @@ export const ShareScreen: React.FC<any> = () => {
     const [cardShared, setCardShared] = useState<Card>();
     const [ownerCard, setOwnerCard] = useState<IUserSharedOwnerData>();
     const { getAllDataFromUser } = useUserService();
-    const [isDialogOpen, setIsDialogOpen] = useState(true);
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [textCopyPaste, setTextCopyPaste] = useState('Copiar link');
     const navigate = useNavigate()
     useEffect(() => {
         console.log('carregando carta do usuário')
+        if (!isAuthenticated()) {
+            setIsDialogOpen(true)
+        }
         if (cardHash) {
             getCardByCardHash(cardHash)
                 .then((response) => {
@@ -85,23 +89,25 @@ export const ShareScreen: React.FC<any> = () => {
                     <>
                         <br />
                         <div className='p-20 bg-base-300 bg-opacity-90 rounded-lg '>
-                            <p className="max-w-max text-lg">Poxa!<br/>
-                            Notamos que você não está logado.<br/>
-                            Cadastre-se para ver todos os detalhes da carta.</p>
-                            <br/>
-                            <div className="w-full m-2 justify-center ">
-                                <br />
-                                <button
-                                    onClick={() => navigate('/register')}
-                                    className="btn bg-primary w-4/5"
-                                >
-                                    Entrar
-                                </button>
+                            <p className="max-w-max text-2xl">
+                                Você não está logado!</p><br /><br />
+                            <p className="max-w-max text-1xl">
+                                Cadastre-se para criar suas próprias cartas e ver todos os detalhes das cartas dos demais jogadores.</p><br />
+                            <p className="max-w-max text-sm">
+                                Não leva 10 segundos.</p><br /><br />
+                            <br />
+                            <div className="w-full flex items-center justify-center lg:w-3/6 ">
                                 <button
                                     onClick={onClose}
-                                    className="btn bg-primary w-4/5"
+                                    className="btn bg- w-2/5"
                                 >
-                                    Continuar
+                                    Fechar
+                                </button>
+                                <button
+                                    onClick={() => navigate('/register')}
+                                    className="ml-4 btn bg-primary w-3/5"
+                                >
+                                    Entrar
                                 </button>
                             </div>
 
@@ -123,61 +129,77 @@ export const ShareScreen: React.FC<any> = () => {
     const handleShowPopupCard = async (cardPopup: Card) => {
         setIsDialogOpen(true);
     }
+
+    const classRarity = `card-frame-background ${getCardClass(cardShared?.rarity)}`;
+
+    function getCardClass(rarity: string | undefined): string {
+        const rarityMap: Record<string, string> = {
+            'STANDARD': 'standard',
+            'UNUSUAL': 'unusual',
+            'LEGENDARY': 'legendary',
+            'MITHY': 'mithy',
+            'RARE': 'rare'
+        };
+
+        return rarityMap[rarity!] || '';
+    }
+    const copyToClipboard = async () => {
+        try {
+            await navigator.clipboard.writeText(window.location.href);
+            setTextCopyPaste('Link copiado!');
+        } catch (err) {
+            console.error('Falha ao copiar texto para a área de transferência:', err);
+        }
+    };
     return (
         <>{!isAuthenticated() && <Dialog isOpen={isDialogOpen} onClose={handleCloseDialog} />}
-            <div className='w-screen lg:fixed top-0'><NavbarApp /></div><div className='h-screen w-screen lg:flex lg:flex-col lg:overflow-auto'>
-
-                <div className='absolute h-full w-full justify-center flex flex-col items-center'>
-                    <div className='bg-base-300 p-9 bg-opacity-90 rounded-lg w-11/12 lg:w-1/2 md:w-2/3 max-w-4xl'>
+            <div className=' w-screen items-center lg:h-screen '>
+                <NavbarApp />
+                <div className="flex flex-col  p-5 h-full w-screen ">
+                    <div className='bg-base-300 p-9 bg-opacity-90 rounded-lg '>
                         <div className='text-center pt-3'>
                             <h2 className="text-xl">Carta de <b className="text-xl">{ownerCard?.name}</b> </h2>
                             <p className="text-sm">Criada em <b>{cardShared && formatDate(cardShared!.datCreation)}</b> </p>
-                        </div>
-                        <div className='animate-bounce font-extrabold text-base font-sans boboca text-center pt-4 lg:pb-3'>
-                            <p className='lg:text-3xl md:text-3xl text-2xl'></p>
-                        </div>
+                        </div><br />
+                        <div className='font-bold text-yellow-500 flex flex-col lg:text-xs  text-base text-center'>
+                            <button onClick={() => copyToClipboard()} className='tooltip btn' data-tip={textCopyPaste}>
+                                COPIAR LINK DE COMPARTILHAMENTO</button>
+                        </div><br />
 
                         <div className='flex flex-col justify-center items-center p-6 '>
-                            <>
-                                {!isDialogOpen &&
-                                    <div className='card-frame-background z-50 rounded-box '>
-                                        <div className=' bg-transparent flex lg:flex-col justify-center items-center h-full w-full p-5'>
+                            {isDialogOpen === false &&
+                                <div className={`${classRarity} ${getCardClass(cardShared?.rarity)} z-50 rounded-box`}>
+                                    <div className=' bg-transparent flex lg:flex-col justify-center items-center h-full w-full p-5'>
 
-                                            <div className=' bg-transparent flex-col p-5 w-fit bg-base-100 rounded-box '>
+                                        <div className=' bg-transparent flex-col p-5 w-fit bg-base-100 rounded-box '>
 
-                                                <div className='text-center pt-3'>
-                                                    <h2 className="text-xl font-bold">{cardShared?.name}</h2>
-                                                </div>
-                                                <div className='flex justify-center items-center p-3'>
-                                                    <img className='w-52 rounded-box' src={!!!cardShared || !!!cardShared.image || !!!cardShared.image.image ? 'cardDefault' : 'data:image/jpeg;base64,' + cardShared.image.image} alt={cardShared?.name} />
-                                                </div>
-                                                <ul className="grid grid-rows-2 grid-flow-col w-full gap-x-2 gap-y-1 text-center text-sm py-4">
-                                                    <li>FORÇA: {!isAuthenticated() ? '?' : cardShared?.attributes.STRENGHT || cardShared?.attributes.FORCA}</li>
-                                                    <li>DESTREZA: {!isAuthenticated() ? '?' : cardShared?.attributes.DEXTERITY || cardShared?.attributes.DESTREZA}</li>
-                                                    <li>VITALIDADE: {!isAuthenticated() ? '?' : cardShared?.attributes.VITALITY || cardShared?.attributes.VITALIDADE}</li>
-                                                    <li>INTELIGENCIA: {!isAuthenticated() ? '?' : cardShared?.attributes.INTELLIGENCE || cardShared?.attributes.INTELIGENCIA}</li>
-                                                </ul>
-                                                <ul className="grid grid-rows-2 grid-flow-col w-full gap-x-2 pt-2 text-sm text-center">
-                                                    <li><b>{cardShared?.rarity}</b></li>
-                                                </ul>
+                                            <div className='text-center pt-3'>
+                                                <h2 className="text-xl font-bold">{cardShared?.name}</h2>
                                             </div>
+                                            <div className='flex justify-center items-center p-3'>
+                                                <img className='w-52 rounded-box' src={!!!cardShared || !!!cardShared.image || !!!cardShared.image.image ? 'cardDefault' : 'data:image/jpeg;base64,' + cardShared.image.image} alt={cardShared?.name} />
+                                            </div>
+                                            <ul className="grid grid-rows-2 grid-flow-col w-full gap-x-2 gap-y-1 text-center text-sm py-4">
+                                                <li>FORÇA: {!isAuthenticated() ? '?' : cardShared?.attributes.STRENGHT || cardShared?.attributes.FORCA}</li>
+                                                <li>DESTREZA: {!isAuthenticated() ? '?' : cardShared?.attributes.DEXTERITY || cardShared?.attributes.DESTREZA}</li>
+                                                <li>VITALIDADE: {!isAuthenticated() ? '?' : cardShared?.attributes.VITALITY || cardShared?.attributes.VITALIDADE}</li>
+                                                <li>INTELIGENCIA: {!isAuthenticated() ? '?' : cardShared?.attributes.INTELLIGENCE || cardShared?.attributes.INTELIGENCIA}</li>
+                                            </ul>
+                                            <ul className="grid grid-rows-2 grid-flow-col w-full gap-x-2 pt-2 text-sm text-center">
+                                                <li><b>{cardShared?.rarity}</b></li>
+                                            </ul>
                                         </div>
+                                    </div>
 
-                                    </div>}
-                                <br />
-                                <ul className="grid grid-rows-2 grid-flow-col w-full gap-x-2 gap-y-1 text-sm text-center">
-                                    <li><b>COLEÇÃO: {cardShared?.collectionSeries}</b></li>
-                                </ul>
-                                <div className='lg:w-4/5 py-5'>
-                                    <p className="max-w-max">{cardShared?.description}</p>
-                                </div>
-                            </>
-
+                                </div>}
+                            <br />
+                            <ul className="grid grid-rows-2 grid-flow-col w-full gap-x-2 gap-y-1 text-sm text-center">
+                                <li><b>COLEÇÃO: {!isAuthenticated() ? '?' : cardShared?.collectionSeries}</b></li>
+                            </ul>
+                            <div className='lg:w-1/5 py-5 text-justify'>
+                                <p className="max-w-max">{cardShared?.description}</p>
+                            </div>
                         </div>
-                    </div>
-
-
-                    <div className='inline-grid lg:grid-flow-col justify-stretch w-full items-center space-y-1 lg:space-y-0 lg:space-x-3'>
                     </div>
                 </div>
             </div></>

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import useAuthHeader from 'react-auth-kit/hooks/useAuthHeader';
 
-export const BASE_URL = 'https://api.eufor-ia.com'
+export const BASE_URL = 'http://localhost:8080'
 
 export const useCardAPI = () => {
   const authHeader = useAuthHeader();
