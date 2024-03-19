@@ -10,6 +10,7 @@ import IUserData from '../shared/types/ResponseUserData';
 import useUserService from '../services/ServiceUser';
 import { FooterCopyright } from '../components/FooterCopyright';
 
+
 type DialogProps = {
     isOpen: boolean;
     onClose: () => void;
@@ -21,6 +22,22 @@ const Dialog: React.FC<DialogProps> = ({ isOpen, onClose, cardPopup }) => {
         return null;
     }
 
+
+    const classRarity = `card-frame-background ${getColorClass(cardPopup?.rarity)}`;
+
+    function getColorClass(color: string | undefined): string {
+        const colorMap: Record<string, string> = {
+            'STANDARD': 'standard',
+            'UNUSUAL': 'unusual',
+            'LEGENDARY': 'legendary',
+            'MITHY': 'mithy',
+            'RARE': 'rare'
+        };
+
+        return colorMap[color!] || '';
+    }
+
+
     return (
         <div
             className="fixed w-screen h-screen bg-base-100 bg-opacity-90 flex items-center justify-center z-10  "
@@ -31,7 +48,7 @@ const Dialog: React.FC<DialogProps> = ({ isOpen, onClose, cardPopup }) => {
                     <div className="h-full md:w-11/12 md:h-5/6 lg:w-7/12 lg:h-5/6 bg-base-300 rounded-lg shadow overflow-auto">
                         <div className='flex flex-col justify-center items-center p-6 '>
                             <>
-                                <div className='card-frame-background z-50 rounded-box '>
+                                <div className={`${classRarity} ${getColorClass(cardPopup?.rarity)} z-50 rounded-box`}>
                                     <div className=' bg-transparent flex lg:flex-col justify-center items-center h-full w-full p-5'>
 
                                         <div className=' bg-transparent flex-col p-5 w-fit bg-base-100 rounded-box '>
@@ -81,6 +98,7 @@ const Dialog: React.FC<DialogProps> = ({ isOpen, onClose, cardPopup }) => {
     );
 };
 
+
 export default Dialog;
 
 export const InventoryScreen: React.FC<any> = () => {
@@ -122,6 +140,7 @@ export const InventoryScreen: React.FC<any> = () => {
                 })
         }
     }, [])
+
 
     return (
         <>

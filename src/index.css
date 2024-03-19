@@ -41,20 +41,39 @@ body,
 }
 
 .card-frame-background {
-    background-image: url('assets/moldura-teste.png');
+  /*  background-image: url('assets/moldura-teste.png'); */
     background-size: 112% 109%;
     background-position: -17.5px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 3.5);
+}
+
+.standard {
+    background-image: url('assets/standard.png')
+}
+
+.unusual {
+    background-image: url('assets/unusual.png')
+}
+
+.rare {
+    background-image: url('assets/rare.png')
+}
+
+.legendary {
+    background-image: url('assets/legendary.png')
+}
+
+.mithy {
+    background-image: url('assets/mithy.png')
 }
 
 .card-frame-background-menu {
-    background-image: url('assets/moldura-teste.png');
     background-size: 122% 119%;
     background-position: -17.5px;
 }
 
 @media only screen and (min-width: 0px) and (max-width: 340px) {
     .card-frame-background-menu {
-        background-image: url('assets/moldura-teste.png');
         background-size: 122% 119%;
         background-position: -11.5px;
     }
@@ -62,7 +81,6 @@ body,
 
 @media only screen and (min-width: 340px) and (max-width: 385px) {
     .card-frame-background-menu {
-        background-image: url('assets/moldura-teste.png');
         background-size: 122% 119%;
         background-position: -12.5px;
     }
@@ -70,7 +88,6 @@ body,
 
 @media only screen and (min-width: 1024px) and (max-width: 1200px) {
     .card-frame-background-menu {
-        background-image: url('assets/moldura-teste.png');
         background-size: 122% 119%;
         background-position: -10px;
     }
@@ -78,7 +95,6 @@ body,
 
 @media only screen and (min-width: 1200px) and (max-width: 1400px) {
     .card-frame-background-menu {
-        background-image: url('assets/moldura-teste.png');
         background-size: 122% 119%;
         background-position: -13.5px;
     }
@@ -86,7 +102,6 @@ body,
 
 @media only screen and (min-width: 1800px) and (max-width: 2100px) {
     .card-frame-background-menu {
-        background-image: url('assets/moldura-teste.png');
         background-size: 122% 119%;
         background-position: -24.5px;
     }
@@ -94,7 +109,6 @@ body,
 
 @media only screen and (min-width: 2100px) and (max-width: 2560px) {
     .card-frame-background-menu {
-        background-image: url('assets/moldura-teste.png');
         background-size: 122% 119%;
         background-position: -31.5px;
     }
@@ -102,7 +116,6 @@ body,
 
 @media only screen and (min-width: 2560px) {
     .card-frame-background-menu {
-        background-image: url('assets/moldura-teste.png');
         background-size: 122% 119%;
         background-position: -40.5px;
     }
