@@ -8,7 +8,7 @@ type ListProps = {
 };
 
 export const CardBox: React.FC<ListProps> = ({ card, onShowDialog }) => {
-  const classRarity = `card-frame-background ${getColorClass(card?.rarity)}`;
+  const classRarity = `card-frame-background-menu ${getColorClass(card?.rarity)}`;
 
   function getColorClass(color: string | undefined): string {
     const colorMap: Record<string, string> = {
