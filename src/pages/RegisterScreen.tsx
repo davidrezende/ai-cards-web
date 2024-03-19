@@ -122,7 +122,7 @@ export const RegisterScreen: React.FC<any> = () => {
         <p className="px-14 mt-10 text-center text-sm text-gray-500">
           Já tem cadastro?{' '}
           <a onClick={() => navigate("/login")} className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500 cursor-pointer">
-            Sign-In
+            Entrar
           </a>
         </p>
       </div>

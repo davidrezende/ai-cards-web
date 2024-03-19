@@ -37,6 +37,19 @@ const Dialog: React.FC<DialogProps> = ({ isOpen, onClose, cardPopup }) => {
         return colorMap[color!] || '';
     }
 
+    function getNameRarity(desc: string | undefined): string {
+        const rarityMap: Record<string, string> = {
+            'STANDARD': 'NORMAL',
+            'UNUSUAL': 'INCOMUM',
+            'LEGENDARY': 'LENDÁRIA',
+            'MITHY': 'MÍTICA',
+            'RARE': 'RARA'
+        };
+
+        return rarityMap[desc!] || '';
+    }
+
+
 
     return (
         <div
@@ -66,7 +79,7 @@ const Dialog: React.FC<DialogProps> = ({ isOpen, onClose, cardPopup }) => {
                                                 <li>INTELIGENCIA: {cardPopup?.attributes.INTELLIGENCE || cardPopup?.attributes.INTELIGENCIA}</li>
                                             </ul>
                                             <ul className="grid grid-rows-2 grid-flow-col w-full gap-x-2 pt-2 text-sm text-center">
-                                                <li><b>{cardPopup?.rarity}</b></li>
+                                                <li><b>{getNameRarity(cardPopup?.rarity)}</b></li>
                                             </ul>
                                         </div>
                                     </div>
