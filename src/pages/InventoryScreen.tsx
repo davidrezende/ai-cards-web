@@ -32,7 +32,7 @@ const Dialog: React.FC<DialogProps> = ({ isOpen, onClose, cardPopup }) => {
             'STANDARD': 'standard',
             'UNUSUAL': 'unusual',
             'LEGENDARY': 'legendary',
-            'MITHY': 'mithy',
+            'MYTHIC': 'mythic',
             'RARE': 'rare'
         };
 
@@ -44,7 +44,7 @@ const Dialog: React.FC<DialogProps> = ({ isOpen, onClose, cardPopup }) => {
             'STANDARD': 'NORMAL',
             'UNUSUAL': 'INCOMUM',
             'LEGENDARY': 'LENDÁRIA',
-            'MITHY': 'MÍTICA',
+            'MITHYC': 'MÍTICA',
             'RARE': 'RARA'
         };
 

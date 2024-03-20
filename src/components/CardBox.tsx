@@ -15,7 +15,7 @@ export const CardBox: React.FC<ListProps> = ({ card, onShowDialog }) => {
       'STANDARD': 'standard',
       'UNUSUAL': 'unusual',
       'LEGENDARY': 'legendary',
-      'MITHY': 'mithy',
+      'MYTHIC': 'mythic',
       'RARE': 'rare'
     };
 

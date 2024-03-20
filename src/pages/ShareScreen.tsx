@@ -137,7 +137,7 @@ export const ShareScreen: React.FC<any> = () => {
             'STANDARD': 'standard',
             'UNUSUAL': 'unusual',
             'LEGENDARY': 'legendary',
-            'MITHY': 'mithy',
+            'MYTHIC': 'mythic',
             'RARE': 'rare'
         };
 
