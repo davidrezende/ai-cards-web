@@ -12,42 +12,50 @@ import createStore from 'react-auth-kit/createStore';
 import RequireAuth from '@auth-kit/react-router/RequireAuth'
 import { ProfileScreen } from './pages/ProfileScreen.tsx'
 import { ShareScreen } from './pages/ShareScreen.tsx'
+import Layout from './components/Layout.tsx'
+import { HelmetProvider } from 'react-helmet-async'
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <HomeScreen />,
+    element: <Layout title="Eufor-IA - Desenhe a sua imaginação com palavras" description={"Crie seu universo onde os super-heróis e super-vilões são apenas o começo. Cada detalhe, cada aliado que recruta, é feito exclusivamente para você."}><HomeScreen /></Layout>,
   },
   {
     path: "/card/create",
     element: <RequireAuth fallbackPath='/login'>
-      <CreateCardScreen />
+      <Layout title="Eufor-IA - Criando sua carta" description={""}>
+        <CreateCardScreen />
+      </Layout>
     </RequireAuth>,
   },
   {
     path: "/profile",
     element: <RequireAuth fallbackPath='/login'>
-      <ProfileScreen />
+      <Layout title="Eufor-IA - Seus dados" description={""}>
+        <ProfileScreen />
+      </Layout>
     </RequireAuth>,
   },
   {
     path: "/cards",
     element:
       <RequireAuth fallbackPath='/login'>
-        <InventoryScreen />
+        <Layout title="Eufor-IA - Seu Deck" description={""}>
+          <InventoryScreen />
+        </Layout>
       </RequireAuth>
   },
   {
     path: "/login",
-    element: <LoginScreen />,
+    element: <Layout title="Eufor-IA - Entrar" description={""}><LoginScreen /></Layout>,
   },
   {
     path: "/share/:cardHash",
-    element: <ShareScreen />
+    element: <Layout title="Eufor-IA - Carta misteriosa compartilhada" description={"Um velho encapuzado aparece e compartilha com você uma carta misteriosa... nem mesmo ele sabe dizer os perigos que ela pode representar para o mundo. Você saberá? Descubra quem lhe aguarda do outro lado."}><ShareScreen /></Layout>
   },
   {
     path: "/register",
-    element: <RegisterScreen />,
+    element: <Layout title="Eufor-IA - Cadastre-se" description={""}><RegisterScreen /></Layout>,
   }
 ]);
 
@@ -61,9 +69,11 @@ const store = createStore({
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <div>
     <React.StrictMode>
-        <AuthProvider store={store}>
+      <AuthProvider store={store}>
+        <HelmetProvider>
           <RouterProvider router={router} />
-        </AuthProvider>
+        </HelmetProvider>
+      </AuthProvider>
     </React.StrictMode>
   </div>
 )
