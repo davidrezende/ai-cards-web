@@ -196,6 +196,7 @@ export const CardCreateForm: React.FC<any> = () => {
                     onChange={e => setAnswer(e.target.value)}
                     value={answer}
                     placeholder={placeHolderEx[qt]}
+                    maxLength={255}
                   />
                 </div>
                 <div className='inline-grid lg:grid-flow-col justify-stretch w-full items-center space-y-1 lg:space-y-0 lg:space-x-3'>
@@ -226,6 +227,7 @@ export const CardCreateForm: React.FC<any> = () => {
                       onChange={e => setImageAnswer(e.target.value)}
                       value={imageAnswer}
                       placeholder={"Mago, Loiro, Barbudo, Cabelos Longos, Cajado na mão."}
+                      maxLength={255}
                     />
                   </div>
                   <div className='inline-grid lg:grid-flow-col justify-stretch w-full items-center space-y-1 lg:space-y-0 lg:space-x-3'>
@@ -251,6 +253,7 @@ export const CardCreateForm: React.FC<any> = () => {
                         onChange={e => setNameAnswer(e.target.value)}
                         value={nameAnswer}
                         placeholder={"Pedro"}
+                        maxLength={20}
                       />
                     </div>
                     <div className='inline-grid lg:grid-flow-col justify-stretch w-full items-center space-y-1 lg:space-y-0 lg:space-x-3'>

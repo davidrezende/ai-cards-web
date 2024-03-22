@@ -64,13 +64,13 @@ const Dialog: React.FC<DialogProps> = ({ isOpen, onClose, cardPopup }) => {
                     <div className='flex flex-col justify-center items-center p-6 '>
                         
                         <>
-                            <div className={`${classRarity} ${getCardClass(cardPopup?.rarity)} z-50 rounded-box`}>
-                                <div className=' bg-transparent flex lg:flex-col justify-center items-center h-full w-full p-5'>
+                            <div className={`${classRarity} ${getCardClass(cardPopup?.rarity)} z-50 rounded-box card-shadow`}>
+                                <div className=' bg-transparent flex lg:flex-col justify-center items-center h-full w-full'>
 
-                                    <div className=' bg-transparent flex-col p-5 w-fit bg-base-100 rounded-box '>
+                                    <div className=' bg-transparent flex-col p-10 w-fit bg-base-100 rounded-box '>
 
-                                        <div className='text-center pt-3'>
-                                            <h2 className="text-xl font-bold">{cardPopup?.name}</h2>
+                                        <div className='pt-3'>
+                                            <h2 className="text-center text-balance text-xl font-bold">{cardPopup?.name}</h2>
                                         </div>
                                         <div className='flex justify-center items-center p-3'>
                                             <img className='w-52 rounded-box' src={!!!cardPopup || !!!cardPopup.image || !!!cardPopup.image.image ? 'cardDefault' : 'data:image/jpeg;base64,' + cardPopup.image.image} alt={cardPopup?.name} />
@@ -195,13 +195,13 @@ export const InventoryScreen: React.FC<any> = () => {
                     </div>
                     <div className="divider lg:divider-horizontal">
                     </div>
-                    <div className="p-5 w-full sm:p-10 md:p-5 card bg-base-200 rounded-box overflow-auto h-full">
+                    <div className="p-4 w-full sm:p-10 md:p-5 card bg-base-200 rounded-box overflow-auto h-full">
                         <div className='flex w-full'>
                             <div className='top-20'>
                                 <p className='pb-5 text-start font-bold text-xl subpixel-antialiased'> Deck ({!!cards ? cards.length : '0'})</p>
                             </div>
                         </div>
-                        <div className="grid grid-cols-2 gap-5 md:gap-3 lg:gap-6 lg:grid-cols-6 md:grid-cols-4 sm:p-5 overflow-auto">
+                        <div className="grid grid-cols-2 gap-5 md:gap-3 lg:gap-6 lg:grid-cols-4 sm:p-5 overflow-auto">
                             {
                                 
                                 !!cards ? cards.length > 0 ? cards.map((card) => (

@@ -8,7 +8,7 @@ type ListProps = {
 };
 
 export const CardBox: React.FC<ListProps> = ({ card, onShowDialog }) => {
-  const classRarity = `card-frame-background-menu ${getColorClass(card?.rarity)}`;
+  const classRarity = `card-frame-background ${getColorClass(card?.rarity)}`;
 
   function getColorClass(color: string | undefined): string {
     const colorMap: Record<string, string> = {
@@ -24,12 +24,12 @@ export const CardBox: React.FC<ListProps> = ({ card, onShowDialog }) => {
 
   return (
     <>
-      <div onClick={() => onShowDialog(card)} className="flex items-center justify-center hover:scale-125 pb-3 hover:animate-spin">
-        <div className={`${classRarity} ${getColorClass(card?.rarity)}  2xl:p-10 p-3 rounded-box border-solid border-2 bg-base-200 border-gray-700 card shadow-xl w-full h-full"`}>
-          <p className="font-bold truncate text-center pb-2 text-sm md:text-base lg:text-lg xl:text-xl whitespace-nowrap ">
+      <div onClick={() => onShowDialog(card)} className=" hover:scale-125 card-shadow rounded-lg">
+        <div className={`${classRarity} ${getColorClass(card?.rarity)} py-20 px-7 max-2xl:py-10 max-xl:py-9 max-2xl:px-4 bg-base-200 card shadow-xl w-full h-full" `}>
+          <p className="font-bold truncate text-center text-sm md:text-base lg:text-lg xl:text-xl whitespace-nowrap ">
             {card.name}
           </p>
-          <img className="rounded-box" src={!!!card || !!!card.image || !!!card.image.image ? cardDefault : 'data:image/jpeg;base64,' + card.image.image} alt={card.name} />
+          <img className="rounded-lg w-full p-10 max-2xl:p-3 max-lg:p-10 max-sm:p-2" src={!!!card || !!!card.image || !!!card.image.image ? cardDefault : 'data:image/jpeg;base64,' + card.image.image} alt={card.name} />
         </div>
       </div>
     </>
