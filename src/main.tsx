@@ -14,6 +14,7 @@ import { ProfileScreen } from './pages/ProfileScreen.tsx'
 import { ShareScreen } from './pages/ShareScreen.tsx'
 import Layout from './components/Layout.tsx'
 import { HelmetProvider } from 'react-helmet-async'
+import { ConfirmationRegisterScreen } from './pages/ConfirmationRegisterScreen.tsx'
 
 const router = createBrowserRouter([
   {
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
   {
     path: "/share/:cardHash",
     element: <Layout title="Eufor-IA - Carta misteriosa compartilhada" description={"Um velho encapuzado aparece e compartilha com você uma carta misteriosa... nem mesmo ele sabe dizer os perigos que ela pode representar para o mundo. Você saberá? Descubra quem lhe aguarda do outro lado."}><ShareScreen /></Layout>
+  },
+  {
+    path: "/confirmation/:userId/:confirmationCode",
+    element: <Layout title="Eufor-IA - Confirmação de cadastro" description={""}><ConfirmationRegisterScreen /></Layout>
   },
   {
     path: "/register",
