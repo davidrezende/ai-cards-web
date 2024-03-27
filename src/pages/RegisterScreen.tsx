@@ -41,7 +41,7 @@ export const RegisterScreen: React.FC<any> = () => {
             password
           });
           alertContext('success');
-          setMessage("Conta criada com sucesso!")
+          setMessage("Conta criada com sucesso!\nConfirme seu cadastro acessando o link enviado para o seu email.")
           setLoading(false);
         } catch (error) {
           setMessage("Email já existente.")

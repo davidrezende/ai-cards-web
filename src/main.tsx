@@ -55,7 +55,7 @@ const router = createBrowserRouter([
     element: <Layout title="Eufor-IA - Carta misteriosa compartilhada" description={"Um velho encapuzado aparece e compartilha com você uma carta misteriosa... nem mesmo ele sabe dizer os perigos que ela pode representar para o mundo. Você saberá? Descubra quem lhe aguarda do outro lado."}><ShareScreen /></Layout>
   },
   {
-    path: "/confirmation/:userId/:confirmationCode",
+    path: "/confirmation/:userId/:confirmationId",
     element: <Layout title="Eufor-IA - Confirmação de cadastro" description={""}><ConfirmationRegisterScreen /></Layout>
   },
   {

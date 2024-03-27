@@ -1,31 +1,24 @@
-import React, { useEffect, useState } from "react"
-import useSignIn from "react-auth-kit/hooks/useSignIn"
-import { useNavigate } from 'react-router-dom'
-import useAuthService from "../services/ServiceAuth"
-import useIsAuthenticated from 'react-auth-kit/hooks/useIsAuthenticated'
-import Alerts from "../components/Alerts"
-import Loading from "../components/QuestionLoading"
-import { NavbarApp } from "../components/NavbarApp"
+import React, { useEffect, useState } from "react";
+import useSignIn from "react-auth-kit/hooks/useSignIn";
+import { useNavigate } from 'react-router-dom';
+import useAuthService from "../services/ServiceAuth";
+import useIsAuthenticated from 'react-auth-kit/hooks/useIsAuthenticated';
+import Alerts from "../components/Alerts";
+import Loading from "../components/QuestionLoading";
+import { NavbarApp } from "../components/NavbarApp";
 
 export const LoginScreen: React.FC<any> = () => {
-
-  const isAuthenticated = useIsAuthenticated()
-  const navigate = useNavigate()
-  const signIn = useSignIn()
-  const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
+  const isAuthenticated = useIsAuthenticated();
+  const navigate = useNavigate();
+  const signIn = useSignIn();
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const [alert, setAlert] = useState('');
   const [error, setError] = useState<string>('');
   const [loading, setLoading] = useState(false);
   const [phraseLogin, setPhraseLogin] = useState('');
   const [visible, setVisible] = useState(false);
   const { userLogin } = useAuthService();
-
-  function getRandomElement(array: String[]): String {
-    const randomIndex = Math.floor(Math.random() * array.length);
-    setPhraseLogin(array[randomIndex].toString());
-    return array[randomIndex];
-  }
 
   const greetingsPhrases = [
     'Revelando os segredos mais obscuros...',
@@ -41,73 +34,96 @@ export const LoginScreen: React.FC<any> = () => {
     'Eu sou seu pai!'
   ];
 
-
-
   useEffect(() => {
     console.log('verificando se usuario logado')
-    getRandomElement(greetingsPhrases)
+    getRandomElement(greetingsPhrases);
     if (isAuthenticated()) {
       navigate('/cards')
     }
-  }, [])
+  }, []);
+
+  function getRandomElement(array: String[]): String {
+    const randomIndex = Math.floor(Math.random() * array.length);
+    setPhraseLogin(array[randomIndex].toString());
+    return array[randomIndex];
+  }
 
   function createAccount() {
     navigate('/register')
   }
 
+  const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    console.log("Values: ", email);
-    console.log("Values: ", password);
-
+    setVisible(false)
+    setLoading(true)
+    await delay(1000)
     userLogin(
       {
         "email": email,
         "password": password
       }
-    ).then((response) => {
-      console.log("response:" + response.data.token)
-      setLoading(true)
-      if (isAuthenticated() == false) {
-        const token = response.data.token;
-        const [, payload,] = token.split('.');
-        const decodedPayload = atob(payload);
-        const parsedPayload = JSON.parse(decodedPayload);
-        const sub = parsedPayload.sub;
-        console.log("sub:" + sub); // Output: 1234567890
-        signIn({
-          auth: {
-            token: token,
-            type: 'Bearer'
-          },
-          userState: {
-            userId: sub
+    )
+      .then(async (response: any) => {
+        if (response.status === 200) {
+          if (isAuthenticated() == false) {
+            const token = response.data.token;
+            const [, payload,] = token.split('.');
+            const decodedPayload = atob(payload);
+            const parsedPayload = JSON.parse(decodedPayload);
+            const sub = parsedPayload.sub;
+            signIn({
+              auth: {
+                token: token,
+                type: 'Bearer'
+              },
+              userState: {
+                userId: sub
+              }
+            })
+            setVisible(false)
+            await delay(2000)
+            getRandomElement(greetingsPhrases);
+            await delay(2000)
+            getRandomElement(greetingsPhrases);
+            await delay(1000)
+            navigate('/cards');
           }
-        })
-        setVisible(false)
-        setTimeout(() => {
-          getRandomElement(greetingsPhrases);
-        }, 2000);
-        setTimeout(() => {
-          getRandomElement(greetingsPhrases);
-        }, 2000);
-        setTimeout(() => {
-          navigate('/cards');
-        }, 5000);
+        } else {
+          setError("Serviço indisponível. Por favor, tente novamente mais tarde.")
+          alertContext('error');
+          setLoading(false)
+          setVisible(true)
+        }
 
-      }
-    }).catch((error) => {
-      setError("Email ou Senha incorretos.")
-      alertContext('error');
-      console.log(error);
-    })
+      }).catch(async (error: any) => {
+        if (error.response && error.response.status) {
+          if (error.response.status === 401) {
+            setError("Confirme seu cadastro acessando o link enviado para seu e-mail")
+            alertContext('warning');
+            setLoading(false)
+            setVisible(true)
+          } else if (error.response.status === 403) {
+            setError("Email ou Senha incorretos.")
+            alertContext('error');
+            setLoading(false)
+            setVisible(true)
+          } else {
+            setError("Serviço indisponível. Por favor, tente novamente mais tarde.")
+            alertContext('error');
+            setLoading(false)
+            setVisible(true)
+          }
+        }
+      })
   }
 
   function alertContext(type: string) {
     setVisible(true);
     setAlert(type);
   }
+
 
   return (
     <>
