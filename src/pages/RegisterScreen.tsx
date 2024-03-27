@@ -14,7 +14,7 @@ export const RegisterScreen: React.FC<any> = () => {
   const [password, setPassword] = useState<string>('');
   const [visible, setVisible] = useState(false);
   const [alert, setAlert] = useState('');
-  const [error, setError] = useState<string>('');
+  const [message, setMessage] = useState<string>('');
   const { userRegister } = useAuthService();
   const [loading, setLoading] = useState(false);
   const { validatePasswordCriteria } = usePasswordService();
@@ -30,7 +30,7 @@ export const RegisterScreen: React.FC<any> = () => {
     setTimeout(async () => {
 
       if (!validatePasswordCriteria(password)) {
-        setError("Senha não atende aos requisitos mínimos:\nMínimo 6 a 12 caracteres.")
+        setMessage("Senha não atende aos requisitos mínimos:\nMínimo 6 a 12 caracteres.")
         alertContext('error');
         setLoading(false);
       } else {
@@ -41,9 +41,10 @@ export const RegisterScreen: React.FC<any> = () => {
             password
           });
           alertContext('success');
+          setMessage("Conta criada com sucesso!\nConfirme seu cadastro acessando o link enviado para o seu email.")
           setLoading(false);
         } catch (error) {
-          setError("Email já existente.")
+          setMessage("Email já existente.")
           alertContext('error');
           console.log(error);
           setLoading(false);
@@ -62,7 +63,7 @@ export const RegisterScreen: React.FC<any> = () => {
   return (
     <div className="relative h-screen w-screen flex flex-col justify-center px-6 py-12 lg:px-8 bg-white absolute bg-opacity-95">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        {visible && Alerts(alert, error)}
+        {visible && Alerts(alert, message)}
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-500"> Cadastro
           <a href="/" className="text-indigo-600 "> Eufor-IA</a>
         </h2>

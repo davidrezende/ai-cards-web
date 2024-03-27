@@ -8,9 +8,19 @@ import IUserModifyData from '../shared/types/RequestModifyUserData';
 import usePasswordService from '../services/PasswordService';
 import { NavbarApp } from '../components/NavbarApp';
 import { FooterCopyright } from '../components/FooterCopyright';
+import Alerts from '../components/Alerts';
 
 export const ProfileScreen: React.FC<any> = () => {
+
+    function alertContext(type: string) {
+        setVisible(true);
+        setAlert(type);
+    }
+
     const authUser = useAuthUser<IUserData>()
+    const [alert, setAlert] = useState('');
+    const [error, setError] = useState<string>('');
+    const [visible, setVisible] = useState(false);
     const isAuthenticated = useIsAuthenticated()
     const { updateDataFromUser, getAllDataFromUser } = useUserService();
     const { validatePasswordCriteria } = usePasswordService();
@@ -40,9 +50,15 @@ export const ProfileScreen: React.FC<any> = () => {
     };
 
     const handleSave = async () => {
+        setVisible(false)
         if (!isAlterPass) {
             console.log("n alterei a senha")
             setUserConfirm({ userId: user.userId, name: user.name, email: user.email, password: userConfirm.password, newPassword: '' });
+            if (!userConfirm.password || !validatePasswordCriteria(userConfirm.password)) {
+                setError("Senha atual inválida ou incorreta. Preencha sua senha atual para confirmar alterações.")
+                alertContext('error');
+                setVisible(true)
+            }
         } else {
             console.log("alterei a senha")
             if (userConfirm.newPassword != '' &&
@@ -70,16 +86,22 @@ export const ProfileScreen: React.FC<any> = () => {
                     password: '',
                     newPassword: '',
                 });
+                setError("Dados salvos com sucesso!")
+                alertContext('success');
+                setVisible(true)
                 console.log("atualização realizada com sucesso")
             }).catch((error) => {
                 console.log(error)
                 console.log("atualização realizada com erro")
-
+                setError("Dados inválidos para alteração.")
+                alertContext('error');
+                setVisible(true)
             })
         }
     };
 
     const handleCancel = () => {
+        setVisible(false)
         console.log(user);
         setIsEditing(false);
         setInputClass('btn-disabled lg:text-2xl md:text-xl text-sm btn-lg w-full rounded-md py-1.5 shadow-sm ring-1 ring-inset ring-gray-400 placeholder:text-gray-700 focus:ring-2 focus:ring-inset focus:ring-indigo-600'); // Atualiza a classe do input
@@ -113,7 +135,7 @@ export const ProfileScreen: React.FC<any> = () => {
                     </div>
                 </div>
                 <div className='bg-base-300 p-9 bg-opacity-90 rounded-lg w-11/12 lg:w-1/2 md:w-2/3 max-w-4xl'>
-
+                    {visible && Alerts(alert, error)}
                     <div className='animate-bounce font-extrabold text-base font-sans boboca text-center pt-4 lg:pb-3'>
                         <p className='lg:text-3xl md:text-3xl text-2xl'></p>
                     </div>

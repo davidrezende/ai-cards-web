@@ -64,13 +64,14 @@ export const useAuthAPI = () => {
   });
 
 
-  AuthAPI.interceptors.response.use(function (response) {
-    return response;
-  }, function (error) {
-    console.log("token agora é pelo hook:" + useAuthHeader())
-    console.log(error.response)
-    return Promise.reject(error);
-  });
+  AuthAPI.interceptors.response.use(
+    (response) => response,
+    (error) => {
+       if (error.response && error.response.status === 401) {
+         console.log("Erro 401: Autenticação necessária.");
+       }
+       return Promise.reject(error);
+    });
   return AuthAPI;
 };
 
