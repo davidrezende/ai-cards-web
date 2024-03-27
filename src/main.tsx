@@ -15,6 +15,8 @@ import { ShareScreen } from './pages/ShareScreen.tsx'
 import Layout from './components/Layout.tsx'
 import { HelmetProvider } from 'react-helmet-async'
 import { ConfirmationRegisterScreen } from './pages/ConfirmationRegisterScreen.tsx'
+import { SupportScreen } from './pages/SupportScreen.tsx'
+import { AboutScreen } from './pages/AboutScreen.tsx'
 
 const router = createBrowserRouter([
   {
@@ -36,6 +38,20 @@ const router = createBrowserRouter([
         <ProfileScreen />
       </Layout>
     </RequireAuth>,
+  },
+  {
+    path: "/support",
+    element: 
+      <Layout title="Eufor-IA - Suporte" description={"Está com problemas em nossa plataforma? Conheça nossos canais oficiais para entrar em contato."}>
+        <SupportScreen />
+      </Layout>
+  },
+  {
+    path: "/about",
+    element: 
+      <Layout title="Eufor-IA - Sobre" description={"Descubra mais sobre como nossa plataforma funciona."}>
+        <AboutScreen />
+      </Layout>
   },
   {
     path: "/cards",
