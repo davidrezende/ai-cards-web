@@ -55,7 +55,7 @@ const Dialog: React.FC<DialogProps> = ({ isOpen, onClose, cardPopup }) => {
 
     return (
         <><div
-            className="fixed w-screen h-screen bg-base-100 bg-opacity-90 flex items-center justify-center z-10  "
+            className="fixed w-screen h-screen bg-base-100 bg-opacity-90 flex items-center justify-center z-10 "
             onClick={onClose}>
             {cardPopup?.status == "CREATED" ?
 
@@ -64,7 +64,7 @@ const Dialog: React.FC<DialogProps> = ({ isOpen, onClose, cardPopup }) => {
                     <div className='flex flex-col justify-center items-center p-6 '>
                         
                         <>
-                            <div className={`${classRarity} ${getCardClass(cardPopup?.rarity)} z-50 rounded-box card-shadow`}>
+                            <div className={`${classRarity} ${getCardClass(cardPopup?.rarity)} z-50 rounded-box card-shadow child`}>
                                 <div className=' bg-transparent flex lg:flex-col justify-center items-center h-full w-full'>
 
                                     <div className=' bg-transparent flex-col p-10 w-fit bg-base-100 rounded-box '>
