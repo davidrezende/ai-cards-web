@@ -35,7 +35,6 @@ export const LoginScreen: React.FC<any> = () => {
   ];
 
   useEffect(() => {
-    console.log('verificando se usuario logado')
     getRandomElement(greetingsPhrases);
     if (isAuthenticated()) {
       navigate('/cards')
@@ -163,7 +162,7 @@ export const LoginScreen: React.FC<any> = () => {
                     Senha
                   </label>
                   <div className="text-sm">
-                    <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
+                    <a href="/support" className="font-semibold text-indigo-600 hover:text-indigo-500">
                       Esqueceu a senha?
                     </a>
                   </div>

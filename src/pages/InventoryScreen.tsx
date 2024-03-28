@@ -55,7 +55,7 @@ const Dialog: React.FC<DialogProps> = ({ isOpen, onClose, cardPopup }) => {
 
     return (
         <><div
-            className="fixed w-screen h-screen bg-base-100 bg-opacity-90 flex items-center justify-center z-10  "
+            className="fixed w-screen h-screen bg-base-100 bg-opacity-90 flex items-center justify-center z-10 "
             onClick={onClose}>
             {cardPopup?.status == "CREATED" ?
 
