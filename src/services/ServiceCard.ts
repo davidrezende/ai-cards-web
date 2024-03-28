@@ -11,13 +11,15 @@ const useCardService = () => {
     const updateCardName = (requestUpdateName: IRequestUpdateCardName) => CardAPI.patch('/name', requestUpdateName)
     const getAllCardsByUser = (userId: string) => CardAPI.get('/user/' + userId)
     const getCardByCardHash = (cardHash: string) => CardAPI.get('/' + cardHash)
+    const findTop10Cards = CardAPI.get('/top10')
 
     return {
         generateCardText,
         generateCardImage,
         updateCardName,
         getAllCardsByUser,
-        getCardByCardHash
+        getCardByCardHash,
+        findTop10Cards
     }
 }
 export default useCardService;

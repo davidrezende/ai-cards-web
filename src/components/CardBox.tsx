@@ -1,5 +1,5 @@
 import React from 'react';
-import cardDefault from '../assets/nobg.png'
+import cardDefault from '../assets/nobg.jpg'
 import Card from '../shared/types/CardVO';
 
 type ListProps = {
@@ -24,7 +24,7 @@ export const CardBox: React.FC<ListProps> = ({ card, onShowDialog }) => {
 
   return (
     <>
-      <div onClick={() => onShowDialog(card)} className=" hover:scale-125 card-shadow rounded-lg">
+      <div onClick={() => onShowDialog(card)} className=" hover:scale-125 card-shadow rounded-lg hover:animate-spin">
         <div className={`${classRarity} ${getColorClass(card?.rarity)} py-20 px-7 max-2xl:py-10 max-xl:py-9 max-2xl:px-4 bg-base-200 card shadow-xl w-full h-full" `}>
           <p className="font-bold truncate text-center text-sm md:text-base lg:text-lg xl:text-xl whitespace-nowrap ">
             {card.name}

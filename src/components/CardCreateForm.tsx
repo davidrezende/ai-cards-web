@@ -187,7 +187,7 @@ export const CardCreateForm: React.FC<any> = () => {
           <div className='bg-base-300 p-9 bg-opacity-90 rounded-lg w-11/12 lg:w-1/2 md:w-2/3 max-w-4xl'>
             {showLoading ?
               <>
-                <div className='animate-bounce font-extrabold text-base font-sans boboca text-center pt-4 lg:pb-3'>
+                <div className='font-extrabold text-base font-sans boboca text-center pt-4 lg:pb-3'>
                   <p className='lg:text-3xl md:text-3xl text-2xl'>{questions[qt].question}</p>
                 </div>
                 <div className='flex component-preview py-4 font-sans'>

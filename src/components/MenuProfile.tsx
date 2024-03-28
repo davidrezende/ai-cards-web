@@ -34,6 +34,7 @@ export const MenuProfile: React.FC<ListProps> = ({ userData }) => {
       <Card.Body>
         <Form><Button className='mt-2 btn btn-active font-bold text-xl font-mono normal-case bg-warning' dataTheme='light' onClick={() => navigate("/profile")}>Perfil</Button>
           <Button className='mt-5 btn btn-active font-bold text-xl font-mono normal-case bg-warning' dataTheme='light' onClick={() => navigate("/card/create")}>+ Nova Carta</Button>
+          <Button className='mt-5 btn btn-active font-bold text-xl font-mono normal-case bg-warning' dataTheme='light' onClick={() => navigate("/ranking")}>Ranking</Button>
           <Button className='mt-5 btn btn-disabled font-bold text-xl font-mono normal-case bg-gray-500' dataTheme='light' onClick={() => navigate("/duel")}>Duelar</Button>
         </Form>
       </Card.Body>
