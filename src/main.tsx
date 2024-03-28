@@ -14,6 +14,7 @@ import { ProfileScreen } from './pages/ProfileScreen.tsx'
 import { ShareScreen } from './pages/ShareScreen.tsx'
 import Layout from './components/Layout.tsx'
 import { HelmetProvider } from 'react-helmet-async'
+import { RankingScreen } from './pages/RankingScreen.tsx'
 import { ConfirmationRegisterScreen } from './pages/ConfirmationRegisterScreen.tsx'
 import { SupportScreen } from './pages/SupportScreen.tsx'
 import { AboutScreen } from './pages/AboutScreen.tsx'
@@ -61,6 +62,10 @@ const router = createBrowserRouter([
           <InventoryScreen />
         </Layout>
       </RequireAuth>
+  },
+  {
+    path: "/ranking",
+    element: <Layout title="Eufor-IA - Ranking" description={""}><RankingScreen /></Layout>,
   },
   {
     path: "/login",

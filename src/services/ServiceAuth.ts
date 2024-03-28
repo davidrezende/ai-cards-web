@@ -8,7 +8,7 @@ const useAuthService = () => {
     const AuthAPI = useAuthAPI();
     const userLogin = (requestLogin: IRequestLoginUser) => AuthAPI.post('/login', requestLogin);
     const userRegister = (requestRegister: IRequestRegisterUser) => AuthAPI.post('/register', requestRegister)
-    const userConfirmationRegister = (requestConfirmationRegister: IRequestConfirmationRegisterUser) => AuthAPI.post('/confirmation', requestConfirmationRegister)
+    const userConfirmationRegister = (requestConfirmationRegister: IRequestConfirmationRegisterUser) => AuthAPI.post('/confirm', requestConfirmationRegister)
 
     return {
         userLogin,

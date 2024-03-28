@@ -41,16 +41,16 @@ export const ConfirmationRegisterScreen: React.FC<any> = () => {
                 setLoading(false)
                 setConfirmed(true)
                 setTitle('Cadastro confirmado!')
-              }, 3000);
+              }, 1500);
               setMessage('Seu cadastro foi confirmado com sucesso!')
               alertContext('success')
               setTimeout(() => {
                 setLoading(true)
                 setTitle('Aguarde. Faça login e divirta-se :)')
-              }, 10000);
+              }, 8000);
               setTimeout(() => {
                 navigate('/login')
-              }, 15000);
+              }, 10000);
             } 
             console.log(response.data)
           }

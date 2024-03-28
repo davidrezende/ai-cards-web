@@ -61,7 +61,7 @@ const Dialog: React.FC<DialogProps> = ({ isOpen, onClose, cardPopup }) => {
 
                 <div className="h-full md:w-11/12 md:h-5/6 lg:w-7/12 lg:h-5/6 bg-base-300 rounded-lg shadow overflow-auto">
                     
-                    <div className='flex flex-col justify-center items-center p-6 '>
+                    <div className='flex flex-col justify-center items-center p-6'>
                         
                         <>
                             <div className={`${classRarity} ${getCardClass(cardPopup?.rarity)} z-50 rounded-box card-shadow child`}>
