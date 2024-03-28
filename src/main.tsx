@@ -49,7 +49,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/ranking",
-    element: <Layout title="Eufor-IA - Entrar" description={""}><RankingScreen /></Layout>,
+    element: <Layout title="Eufor-IA - Ranking" description={""}><RankingScreen /></Layout>,
   },
   {
     path: "/login",
